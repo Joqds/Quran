@@ -10,7 +10,9 @@ namespace Quran.Server.Infrastructure.Persistence.Configurations
         {
             builder.Ignore(e => e.DomainEvents);
 
-            
+            builder.Property(t => t.SampleProperty)
+                .HasMaxLength(200)
+                .IsRequired();
         }
     }
 }

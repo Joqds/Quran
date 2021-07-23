@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+
 using AutoMapper;
 
 namespace Quran.Server.Application.Common.Mappings
@@ -15,17 +16,15 @@ namespace Quran.Server.Application.Common.Mappings
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
             var types = assembly.GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i => 
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom)))
+                .Where(t => t.GetInterfaces().Any(i =>i == typeof(IMapFrom)))
                 .ToList();
 
             foreach (var type in types)
             {
                 var instance = Activator.CreateInstance(type);
 
-                var methodInfo = type.GetMethod("Mapping") 
-                    ?? type.GetInterface("IMapFrom`1").GetMethod("Mapping");
-                
+                var methodInfo = type.GetMethod("Mapping");
+
                 methodInfo?.Invoke(instance, new object[] { this });
 
             }

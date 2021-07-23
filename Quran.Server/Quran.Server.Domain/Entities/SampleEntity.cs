@@ -4,10 +4,11 @@ using Quran.Server.Domain.Events;
 
 namespace Quran.Server.Domain.Entities
 {
-    public class SampleEntity:IHasDomainEvent
+    public class SampleEntity:FullAuditEntity,IHasDomainEvent
     {
         //todo: implement
-
+        public int Id { get; set; }
+        public string SampleProperty { get; set; }
         private bool _done;
         public bool Done
         {
