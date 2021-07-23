@@ -23,7 +23,7 @@ namespace Quran.Server.Api
         {
             Configuration = configuration;
         }
-
+        readonly string AllowedOrigin = "allowedOrigin";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -46,20 +46,26 @@ namespace Quran.Server.Api
                 .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
 
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
-
+            services.AddCors(option =>
+            {
+                option.AddPolicy(AllowedOrigin,
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                );
+            });
             services.AddOpenApiDocument(settings =>
             {
                 settings.Title = "Joqds Quran Api";
                 settings.AddSecurity("JWT", Enumerable.Empty<string>(),
                     new OpenApiSecurityScheme()
                     {
-                        Type = OpenApiSecuritySchemeType.ApiKey,
+                        Type = OpenApiSecuritySchemeType.OAuth2,
                         Name = "Authorization",
                         In = OpenApiSecurityApiKeyLocation.Header,
                         Description = "Type into the textbox: Bearer {your JWT token}."
                     });
 
                 settings.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+               
             });
         }
 
@@ -78,9 +84,11 @@ namespace Quran.Server.Api
                 app.UseHsts();
             }
 
+            app.UseCors(AllowedOrigin);
             app.UseHealthChecks("/health");
+            app.UseOpenApi();
 
-            app.UseHttpsRedirection();
+//            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseSwaggerUi3();
@@ -95,6 +103,7 @@ namespace Quran.Server.Api
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -84,15 +84,11 @@ namespace Quran.Server.Infrastructure.Persistence
             {
                 if (typeof(ISoftDeleteEntity).IsAssignableFrom(entityType.ClrType))
                 {
-                    //                    builder.Entity(entityType.ClrType, typeBuilder =>
-                    //                        {
-                    //                            typeBuilder.HasQueryFilter(x => EF.Property<bool>(x, "IsDeleted")==false);
-                    //                        }
                     var isDeletedProperty = entityType.FindProperty("IsDeleted");
                     if (isDeletedProperty!=null&& isDeletedProperty.ClrType==typeof(bool))
                     {
                         var parameter = Expression.Parameter(entityType.ClrType, "p");
-                        var filter = Expression.Lambda(Expression.Negate(Expression.Property(parameter, isDeletedProperty.PropertyInfo)), parameter);
+                        var filter = Expression.Lambda(Expression.Not(Expression.Property(parameter, isDeletedProperty.PropertyInfo)), parameter);
                         entityType.SetQueryFilter(filter);
                     }
                 }
