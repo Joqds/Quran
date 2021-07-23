@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Domain", "Qura
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Application", "Quran.Server.Application\Quran.Server.Application.csproj", "{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Inferastructure", "Quran.Server.Inferastructure\Quran.Server.Inferastructure.csproj", "{3186F8BB-E813-44B4-96B8-532FBE8B14F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Infrastructure", "Quran.Server.Inferastructure\Quran.Server.Infrastructure.csproj", "{3186F8BB-E813-44B4-96B8-532FBE8B14F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

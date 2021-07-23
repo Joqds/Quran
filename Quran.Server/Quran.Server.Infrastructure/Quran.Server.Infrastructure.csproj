@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Quran.Server.Infrastructure</AssemblyName>
+    <RootNamespace>Quran.Server.Infrastructure</RootNamespace>
+    <PackageId>Quran.Server.Infrastructure</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
