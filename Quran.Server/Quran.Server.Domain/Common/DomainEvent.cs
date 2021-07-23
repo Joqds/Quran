@@ -3,20 +3,16 @@ using System.Collections.Generic;
 
 namespace Quran.Server.Domain.Common
 {
-    public interface IHasDomainEvent<T>
+
+    public interface IHasDomainEvent
     {
-        List<DomainEvent<T>> DomainEvents { get; set; }
+        List<DomainEvent> DomainEvents { get; set; }
     }
 
-    public abstract class DomainEvent<T>
+    public abstract class DomainEvent
     {
-        protected DomainEvent(T item)
-        {
-            Item = item;
-        }
-
         public bool IsPublished { get; set; }
         public DateTimeOffset DateOccurred { get; protected set; } = DateTime.UtcNow;
-        public T Item { get; }
     }
+
 }

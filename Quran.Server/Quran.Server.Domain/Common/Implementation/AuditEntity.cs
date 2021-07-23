@@ -2,11 +2,11 @@
 
 namespace Quran.Server.Domain.Common
 {
-    public class AuditEntity<T, TUserKey>: BaseEntity<T>,IAuditEntity<T, TUserKey>
+    public class AuditEntity: IAuditEntity
     {
         public DateTime Created { get; set; }
-        public TUserKey CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? LastModified { get; set; }
-        public TUserKey LastModifiedBy { get; set; }
+        public Guid? LastModifiedBy { get; set; }
     }
 }

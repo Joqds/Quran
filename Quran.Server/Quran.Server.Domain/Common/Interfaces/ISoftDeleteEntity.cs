@@ -2,10 +2,11 @@
 
 namespace Quran.Server.Domain.Common
 {
-    public interface ISoftDeleteEntity<T, TUserKey> : IBaseEntity<T>
+    public interface ISoftDeleteEntity
     {
         DateTime? Deleted { get; set; }
-        TUserKey DeletedBy { get; set; }
+        bool IsDeleted { get; set; }
+        Guid? DeletedBy { get; set; }
     }
 
     

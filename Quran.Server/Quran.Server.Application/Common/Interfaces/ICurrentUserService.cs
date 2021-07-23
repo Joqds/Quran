@@ -1,7 +1,9 @@
-﻿namespace Quran.Server.Application.Common.Interfaces
+﻿using System;
+
+namespace Quran.Server.Application.Common.Interfaces
 {
     public interface ICurrentUserService
     {
-        string UserId { get; }
+        Guid? UserId { get; }
     }
 }

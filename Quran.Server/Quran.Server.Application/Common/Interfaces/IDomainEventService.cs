@@ -3,8 +3,8 @@ using Quran.Server.Domain.Common;
 
 namespace Quran.Server.Application.Common.Interfaces
 {
-    public interface IDomainEventService<T>
+    public interface IDomainEventService
     {
-        Task Publish(DomainEvent<T> domainEvent);
+        Task Publish(DomainEvent domainEvent);
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Quran.Server.Domain.Common
 {
-    public interface IAuditEntity<T,TUserKey>: IBaseEntity<T>
+    public interface IAuditEntity
     {
         DateTime Created { get; set; }
 
-        TUserKey CreatedBy { get; set; }
+        Guid? CreatedBy { get; set; }
 
         DateTime? LastModified { get; set; }
 
-        TUserKey LastModifiedBy { get; set; }
+        Guid? LastModifiedBy { get; set; }
     }
 }

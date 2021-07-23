@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Quran.Server.Application\Quran.Server.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+    <Folder Include="Quran\" />
+  </ItemGroup>
+
 </Project>
