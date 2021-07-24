@@ -32,7 +32,17 @@ namespace Quran.Server.Infrastructure
             services.AddScoped<IDomainEventService, DomainEventService>();
 
             services
-                .AddDefaultIdentity<ApplicationUser>()
+                .AddIdentity<ApplicationUser,ApplicationRole>(options =>
+                {
+                    options.Lockout.AllowedForNewUsers = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 1;
+                })
+                .AddUserManager<UserManager<ApplicationUser>>()
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddRoleManager<RoleManager<ApplicationRole>>()
@@ -40,15 +50,25 @@ namespace Quran.Server.Infrastructure
                 .AddDefaultUI()
                 ;
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
+            services.AddIdentityServer(options =>
+                {
+                    options.PublicOrigin = "https://quran.api.joqds.ir";
+                    options.IssuerUri = "https://quran.api.joqds.ir";
+                })
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+                {
+                })
+                .AddInMemoryClients(JoqdsClientStore.Clients)
                 ;
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                .AddIdentityServerJwt()
+                .AddCookie()
+                .AddLocalApi()
+                .AddJwtBearer();
 
             services.AddAuthorization(options =>
             {

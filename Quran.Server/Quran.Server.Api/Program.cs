@@ -25,7 +25,7 @@ namespace Quran.Server.Api
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-
+                    
                     if (context.Database.IsSqlServer())
                     {
                         context.Database.Migrate();

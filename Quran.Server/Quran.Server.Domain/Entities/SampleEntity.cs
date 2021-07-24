@@ -24,6 +24,6 @@ namespace Quran.Server.Domain.Entities
             }
         }
 
-        public List<DomainEvent> DomainEvents { get; set; }
+        public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using FluentValidation.AspNetCore;
+using IdentityModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.IdentityModel.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Quran.Server.Api.Filters;
@@ -29,10 +34,24 @@ namespace Quran.Server.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                //options.ForwardLimit = 4;
+                //options.KnownProxies.Add(IPAddress.Parse("127.0.10.1"));
+                //options.ForwardedForHeaderName = "X-Forwarded-For-My-Custom-Header-Name";
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+            });
             services.AddApplication();
             services.AddInfrastructure(Configuration);
+            services.AddMvc();
 
-//            services.AddDatabaseDeveloperPageExceptionFilter();
+            //            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
@@ -44,12 +63,14 @@ namespace Quran.Server.Api
 
             services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>())
                 .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
-
+            
+            
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
             services.AddCors(option =>
             {
                 option.AddPolicy(AllowedOrigin,
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                    builder => builder.AllowCredentials().AllowAnyMethod().AllowAnyHeader()
+                        .SetIsOriginAllowed(s => true)
                 );
             });
             services.AddOpenApiDocument(settings =>
@@ -59,11 +80,26 @@ namespace Quran.Server.Api
                     new OpenApiSecurityScheme()
                     {
                         Type = OpenApiSecuritySchemeType.OAuth2,
-                        Name = "Authorization",
-                        In = OpenApiSecurityApiKeyLocation.Header,
-                        Description = "Type into the textbox: Bearer {your JWT token}."
-                    });
+                        Flows = new OpenApiOAuthFlows()
+                        {
+                            AuthorizationCode = new OpenApiOAuthFlow()
+                            {
+                                AuthorizationUrl = "https://quran.api.joqds.ir/connect/authorize",
+                                TokenUrl = "https://quran.api.joqds.ir/connect/token",
+                                RefreshUrl = "https://quran.api.joqds.ir/connect/refresh",
+                                Scopes = new Dictionary<string, string>
+                                {
+                                    {"Quran.Server.ApiAPI", "Demo API - full access"},
+                                    {OidcConstants.StandardScopes.Profile, "Open Id"},
+                                    {OidcConstants.StandardScopes.OpenId, "Open Id"},
+                                    { OidcConstants.StandardScopes.OfflineAccess, "Open Id"}
+                                },
 
+                            },
+                            
+                        }
+                    });
+                settings.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT"));
                 settings.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
                
             });
@@ -72,6 +108,8 @@ namespace Quran.Server.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseForwardedHeaders();
+            IdentityModelEventSource.ShowPII = true;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -79,7 +117,8 @@ namespace Quran.Server.Api
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseDeveloperExceptionPage();
+//                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -95,15 +134,17 @@ namespace Quran.Server.Api
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseIdentityServer();
+            app.UseIdentityServer(new IdentityServerMiddlewareOptions()
+            {
+                AuthenticationMiddleware = builder => { builder.UseForwardedHeaders(); }
+            });
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
+
             });
         }
     }

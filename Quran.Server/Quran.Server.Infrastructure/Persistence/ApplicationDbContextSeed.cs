@@ -16,11 +16,11 @@ namespace Quran.Server.Infrastructure.Persistence
                 await roleManager.CreateAsync(administratorRole);
             }
 
-            var administrator = new ApplicationUser { UserName = "+989363505697", Email = "mmeshkiny@yahoo.com" };
+            var administrator = new ApplicationUser { UserName = "mmeshkiny@yahoo.com", Email = "mmeshkiny@yahoo.com",EmailConfirmed = true};
 
             if (userManager.Users.All(u => u.UserName != administrator.UserName))
             {
-                await userManager.CreateAsync(administrator, "Administrator1!");
+                await userManager.CreateAsync(administrator, "Mohsen");
                 await userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
