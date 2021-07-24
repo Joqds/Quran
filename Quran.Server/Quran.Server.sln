@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Domain", "Quran.Server.Domain\Quran.Server.Domain.csproj", "{893A5EF6-D3F0-4505-A5A3-2349AD6AFD66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Domain", "Quran.Server.Domain\Quran.Server.Domain.csproj", "{893A5EF6-D3F0-4505-A5A3-2349AD6AFD66}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Application", "Quran.Server.Application\Quran.Server.Application.csproj", "{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Infrastructure", "Quran.Server.Infrastructure\Quran.Server.Infrastructure.csproj", "{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Api", "Quran.Server.Api\Quran.Server.Api.csproj", "{775C3023-1FC6-42A5-BFC5-718CDFF22D44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{893A5EF6-D3F0-4505-A5A3-2349AD6AFD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{893A5EF6-D3F0-4505-A5A3-2349AD6AFD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{893A5EF6-D3F0-4505-A5A3-2349AD6AFD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5846FBF8-BA7E-4808-8D7E-A33BBB6B1C80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
