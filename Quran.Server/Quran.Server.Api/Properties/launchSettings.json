@@ -23,7 +23,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://quran.api.joqds.ir",
+      "applicationUrl": "https://localhost:5003;http://localhost:5002",
       "launchUrl": "https://quran.api.joqds.ir/swagger"
     },
     "Docker": {
