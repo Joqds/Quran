@@ -1,27 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityModel;
+﻿using IdentityModel;
+
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
-using Joqds.Identity.Tools;
+
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
+
+using Quran.Server.Infrastructure.Identity;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {
-    public class JoqdsClientStore :IClientStore
+    public class JoqdsClientStore : IClientStore
     {
-        private static readonly ClientConfig QuranFlutterMobileClient = new ClientConfig(JoqdsConstants.ClientPrefix.QuranFlutterMobile, 1200);
-        private static readonly ClientConfig QuranFlutterWebClient = new ClientConfig(JoqdsConstants.ClientPrefix.QuranFlutterWeb, 86400);
-        private static readonly ClientConfig QuranSwaggerClient = new ClientConfig(JoqdsConstants.ClientPrefix.QuranSwagger, 86400);
-        private static readonly ClientConfig QuranAdminClient = new ClientConfig(JoqdsConstants.ClientPrefix.QuranAdmin, 1200);
+        private static readonly ClientConfig QuranFlutterMobileClient =
+            new ClientConfig(JoqdsConstants.ClientPrefix.QuranFlutterMobile, 1200);
+
+        private static readonly ClientConfig QuranFlutterWebClient =
+            new ClientConfig(JoqdsConstants.ClientPrefix.QuranFlutterWeb, 86400);
+
+        private static readonly ClientConfig QuranSwaggerClient =
+            new ClientConfig(JoqdsConstants.ClientPrefix.QuranSwagger, 86400);
+
+        private static readonly ClientConfig QuranAdminClient =
+            new ClientConfig(JoqdsConstants.ClientPrefix.QuranAdmin, 1200);
+
         private readonly List<string> _allowedOrigins;
 
         public JoqdsClientStore(
-             IConfiguration configuration)
+            IConfiguration configuration)
         {
             _allowedOrigins = configuration.GetSection("AllowedOrigin").Get<List<string>>();
         }
@@ -33,27 +43,28 @@ namespace Joqds.Identity.Stores
             switch (clientType)
             {
                 case JoqdsClientType.QuranFlutterMobile:
-                    return await GetQuranFlutterMobileClient(value);
+                    return await GetQuranFlutterMobileClient(value, clientId);
                 case JoqdsClientType.QuranFlutterWeb:
-                    return await GetQuranFlutterWebClient(value);
+                    return await GetQuranFlutterWebClient(value, clientId);
                 case JoqdsClientType.QuranSwagger:
-                    return await GetQuranSwaggerClient(value,clientId);
+                    return await GetQuranSwaggerClient(value, clientId);
                 case JoqdsClientType.QuranAdmin:
-                    return await GetQuranAdminClient();
+                    return await GetQuranAdminClient(clientId);
                 default:
                     return null;
             }
         }
 
-        public static (JoqdsClientType,Version) GetClientDetail(string clientId)
+        public static (JoqdsClientType, Version) GetClientDetail(string clientId)
         {
             var split = clientId.Split('|');
-            if ((split[0] != QuranAdminClient.Prefix && split.Length != 2) || (split[0] == QuranAdminClient.Prefix && split.Length != 1))
+            if ((split[0] != QuranAdminClient.Prefix && split.Length != 2) ||
+                (split[0] == QuranAdminClient.Prefix && split.Length != 1))
             {
-                return (JoqdsClientType.None,null);
+                return (JoqdsClientType.None, null);
             }
 
-            var joqdsClientType = ClientTypes.GetValueOrDefault(split[0],JoqdsClientType.None);
+            var joqdsClientType = ClientTypes.GetValueOrDefault(split[0], JoqdsClientType.None);
 
             switch (joqdsClientType)
             {
@@ -61,7 +72,7 @@ namespace Joqds.Identity.Stores
                 case JoqdsClientType.QuranFlutterWeb:
                 case JoqdsClientType.QuranSwagger:
                     var valid = Version.TryParse(split[1], out Version version);
-                    return valid? (JoqdsClientType: joqdsClientType, version):(JoqdsClientType.None,null);
+                    return valid ? (JoqdsClientType: joqdsClientType, version) : (JoqdsClientType.None, null);
                 case JoqdsClientType.QuranAdmin:
                     return (joqdsClientType, null);
                 default:
@@ -69,7 +80,7 @@ namespace Joqds.Identity.Stores
             }
         }
 
-        public enum JoqdsClientType 
+        public enum JoqdsClientType
         {
             None,
             QuranFlutterMobile,
@@ -78,21 +89,22 @@ namespace Joqds.Identity.Stores
             QuranAdmin
         }
 
-        private static readonly Dictionary<string, JoqdsClientType> ClientTypes = new Dictionary<string, JoqdsClientType>()
-        {
-            {QuranFlutterMobileClient.Prefix,JoqdsClientType.QuranFlutterMobile},
-            {QuranFlutterWebClient.Prefix,JoqdsClientType.QuranFlutterWeb},
-            {QuranSwaggerClient.Prefix,JoqdsClientType.QuranSwagger},
-            {QuranAdminClient.Prefix,JoqdsClientType.QuranAdmin}
-        };
+        private static readonly Dictionary<string, JoqdsClientType> ClientTypes =
+            new Dictionary<string, JoqdsClientType>()
+            {
+                {QuranFlutterMobileClient.Prefix, JoqdsClientType.QuranFlutterMobile},
+                {QuranFlutterWebClient.Prefix, JoqdsClientType.QuranFlutterWeb},
+                {QuranSwaggerClient.Prefix, JoqdsClientType.QuranSwagger},
+                {QuranAdminClient.Prefix, JoqdsClientType.QuranAdmin}
+            };
 
 
-        private Task<Client> GetQuranAdminClient()
+        private Task<Client> GetQuranAdminClient(string clientId)
         {
 
             var client = new Client
             {
-                ClientId = JoqdsClientType.QuranAdmin.ToString(),
+                ClientId = clientId,
                 RequireClientSecret = false,
                 ClientName = QuranAdminClient.Prefix,
                 AllowOfflineAccess = true,
@@ -117,13 +129,13 @@ namespace Joqds.Identity.Stores
             return Task.FromResult(client);
         }
 
-        private Task<Client> GetQuranFlutterMobileClient(Version version)
+        private Task<Client> GetQuranFlutterMobileClient(Version version, string clientId)
         {
 
             var client = new Client
             {
-                ClientId = JoqdsClientType.QuranFlutterMobile.ToString(),
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                ClientId = clientId,
+                ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
                 AllowOfflineAccess = true,
                 AllowedGrantTypes = new[]
                 {
@@ -163,11 +175,11 @@ namespace Joqds.Identity.Stores
 
         }
 
-        private Task<Client> GetQuranFlutterWebClient(Version version)
+        private Task<Client> GetQuranFlutterWebClient(Version version, string clientId)
         {
             var client = new Client
             {
-                ClientId = JoqdsClientType.QuranFlutterMobile.ToString(),
+                ClientId = clientId,
                 ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
                 AllowOfflineAccess = true,
                 AllowedGrantTypes = new[]
@@ -207,15 +219,13 @@ namespace Joqds.Identity.Stores
             return Task.FromResult(client);
         }
 
-        private Task<Client> GetQuranSwaggerClient(Version version,string clientId)
+        private Task<Client> GetQuranSwaggerClient(Version version, string clientId)
         {
-            var allowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials;
-            allowedGrantTypes = allowedGrantTypes.Concat(GrantTypes.Code).ToList();
-
             var client = new Client
             {
                 ClientId = clientId,
-                RequireClientSecret = false,
+                ClientSecrets = new List<Secret>() { new Secret("3f6ab4da-5dae-404c-ba06-c2ba3686bd94") },
+                RequireClientSecret = true,
                 ClientName = QuranSwaggerClient.Prefix,
                 AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                 AllowOfflineAccess = true,
@@ -225,7 +235,7 @@ namespace Joqds.Identity.Stores
                 UpdateAccessTokenClaimsOnRefresh = false,
                 AccessTokenLifetime = QuranAdminClient.AccessTokenLifetime,
                 RequireConsent = false,
-                RequirePkce=false,
+                RequirePkce = true,
                 AllowedScopes =
                 {
                     OidcConstants.StandardScopes.OpenId,
@@ -243,7 +253,7 @@ namespace Joqds.Identity.Stores
                 {
                     new ClientClaim(JoqdsConstants.ClaimTypes.Version, version.ToString(2)),
                 },
-                
+
             };
             return Task.FromResult(client);
         }

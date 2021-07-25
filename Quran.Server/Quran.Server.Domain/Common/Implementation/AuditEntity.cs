@@ -2,7 +2,7 @@
 
 namespace Quran.Server.Domain.Common
 {
-    public abstract class AuditEntity: IAuditEntity
+    public abstract class AuditEntity : IAuditEntity
     {
         public DateTime Created { get; set; }
         public Guid? CreatedBy { get; set; }

@@ -1,16 +1,19 @@
 ﻿using IdentityServer4.EntityFramework.Storage;
 using IdentityServer4.Services;
+
 using Joqds.Identity.Stores;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
+
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Identity.Implementations;
 using Quran.Server.Infrastructure.Persistence;
@@ -48,7 +51,7 @@ namespace Joqds.Identity
             services.AddCors(option =>
             {
                 option.AddPolicy(_allowedOrigin,
-                    builder => builder.AllowCredentials().AllowAnyMethod().AllowAnyHeader()
+                    policyBuilder => policyBuilder.AllowCredentials().AllowAnyMethod().AllowAnyHeader()
                         .SetIsOriginAllowed(s => true)
                 );
             });
@@ -117,10 +120,9 @@ namespace Joqds.Identity
                 ;
 
 
-            services.AddIdentity<ApplicationUser,ApplicationRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddClaimsPrincipalFactory<JoqdsUserClaimsPrincipalFactory>()
-//                .AddDefaultUI()
                 .AddSignInManager<JoqdsSignInManager>()
                 .AddRoleManager<JoqdsRoleManager>()
                 .AddDefaultTokenProviders();
@@ -163,7 +165,7 @@ namespace Joqds.Identity
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-            IdentityModelEventSource.ShowPII = true;
+                IdentityModelEventSource.ShowPII = true;
             }
 
             app.UseStaticFiles();

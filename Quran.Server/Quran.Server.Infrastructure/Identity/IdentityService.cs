@@ -1,11 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Application.Common.Models;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Identity
 {

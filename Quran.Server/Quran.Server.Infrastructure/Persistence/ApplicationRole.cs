@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+
+using System;
 
 namespace Quran.Server.Infrastructure.Persistence
 {

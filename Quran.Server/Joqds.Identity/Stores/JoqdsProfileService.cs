@@ -1,5 +1,7 @@
 using IdentityServer4.AspNetIdentity;
+
 using Microsoft.Extensions.Logging;
+
 using Quran.Server.Infrastructure.Identity;
 
 namespace Joqds.Identity.Stores

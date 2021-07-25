@@ -1,25 +1,27 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.AspNetIdentity;
+﻿using IdentityServer4.AspNetIdentity;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
-using Joqds.Identity.Tools;
+
 using Microsoft.Extensions.Logging;
+
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Services;
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace Joqds.Identity.Stores
 {
-   
     public class JoqdsResourceOwnerValidator : ResourceOwnerPasswordValidator<ApplicationUser>
     {
         private readonly JoqdsUserManager _userManager;
 
         public JoqdsResourceOwnerValidator(JoqdsUserManager userManager, JoqdsSignInManager signInManager,
-            ILogger<JoqdsResourceOwnerValidator> logger, IEventService eventService) : base(userManager,signInManager,eventService,logger)
+            ILogger<JoqdsResourceOwnerValidator> logger, IEventService eventService) : base(userManager, signInManager,
+            eventService, logger)
         {
             _userManager = userManager;
         }
@@ -31,23 +33,25 @@ namespace Joqds.Identity.Stores
 
             var joqdsClientType = Enum.Parse<JoqdsClientStore.JoqdsClientType>(context.Request.ClientId);
             //todo: check result has error step by step
-            if(!ValidateVersion(version,joqdsClientType))
+            if (!ValidateVersion(version, joqdsClientType))
             {
                 context.Result = new GrantValidationResult(TokenRequestErrors.UnauthorizedClient,
                     ValidationResource.client_version_unsupported);
             }
 
-            if (joqdsClientType==JoqdsClientStore.JoqdsClientType.None)
+            if (joqdsClientType == JoqdsClientStore.JoqdsClientType.None)
                 context.Result = new GrantValidationResult(TokenRequestErrors.InvalidClient);
 
             if (await ValidateUserPassRequest(context)) await base.ValidateAsync(context);
 
-            
 
-             if (context.Result.Error != null) context.Result.Error = ValidationResource.ResourceManager.GetString(context.Result.Error) ?? context.Result.Error;
-             if (context.Result.IsError && string.IsNullOrEmpty(context.Result.ErrorDescription) &&
-                 context.Result.Error == ValidationResource.invalid_grant)
-                 context.Result.ErrorDescription = ValidationResource.invalid_username_or_password;
+
+            if (context.Result.Error != null)
+                context.Result.Error = ValidationResource.ResourceManager.GetString(context.Result.Error) ??
+                                       context.Result.Error;
+            if (context.Result.IsError && string.IsNullOrEmpty(context.Result.ErrorDescription) &&
+                context.Result.Error == ValidationResource.invalid_grant)
+                context.Result.ErrorDescription = ValidationResource.invalid_username_or_password;
         }
 
 
@@ -60,6 +64,7 @@ namespace Joqds.Identity.Stores
                 var user = await _userManager.FindByIdAsync(context.UserName);
                 context.UserName = user.UserName;
             }
+
             return true;
         }
 

@@ -1,14 +1,13 @@
-﻿using System;
-using Joqds.Identity.Tools;
+﻿using IdentityModel.AspNetCore.AccessTokenValidation;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using IdentityModel.AspNetCore.AccessTokenValidation;
-using Microsoft.AspNetCore.Identity;
+
 using Quran.Server.Infrastructure.Identity.Helper;
 using Quran.Server.Infrastructure.Identity.Implementations;
 using Quran.Server.Infrastructure.Persistence;
-using TokenOptions = Joqds.Identity.Tools.TokenOptions;
 
 namespace Quran.Server.Infrastructure.Identity
 {
@@ -74,7 +73,7 @@ namespace Quran.Server.Infrastructure.Identity
                     jwtOptions.ForwardDefaultSelector = Selector.ForwardReferenceToken("introspection");
                     jwtOptions.RequireHttpsMetadata = false;
 
-//                    jwtOptions.MetadataAddress = ;
+                    //                    jwtOptions.MetadataAddress = ;
                     jwtOptions.SaveToken = true;
                 })
                 .AddOAuth2Introspection("introspection", options =>

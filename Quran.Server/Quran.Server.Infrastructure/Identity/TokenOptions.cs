@@ -1,5 +1,5 @@
 ﻿
-namespace Joqds.Identity.Tools
+namespace Quran.Server.Infrastructure.Identity
 {
     public class TokenOptions
     {

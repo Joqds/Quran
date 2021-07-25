@@ -9,5 +9,5 @@ namespace Quran.Server.Domain.Common
         Guid? DeletedBy { get; set; }
     }
 
-    
+
 }

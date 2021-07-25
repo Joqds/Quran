@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+
 using Quran.Server.Infrastructure.Identity.Helper;
 
 namespace Quran.Server.Infrastructure.Identity.Implementations

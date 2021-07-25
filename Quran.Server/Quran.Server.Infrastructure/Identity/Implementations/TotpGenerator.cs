@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Quran.Server.Infrastructure.Identity.Helper;
+
+using System;
 using System.Collections.Generic;
-using Quran.Server.Infrastructure.Identity.Helper;
 
 namespace Quran.Server.Infrastructure.Identity.Implementations
 {
@@ -13,10 +14,10 @@ namespace Quran.Server.Infrastructure.Identity.Implementations
         /// </summary>
         /// <param name="accountSecretKey">User's secret key. Same as used to create the setup.</param>
         /// <param name="length"></param>
-        public int Generate(string accountSecretKey,int? length=null)
+        public int Generate(string accountSecretKey, int? length = null)
         {
             var iteration = GetCurrentCounter();
-            return TotpHasher.Hash(accountSecretKey, iteration, length??TotpConstants.TokenLength);
+            return TotpHasher.Hash(accountSecretKey, iteration, length ?? TotpConstants.TokenLength);
         }
 
         public string GenerateString(string accountSecretKey, int? length = null)
@@ -48,7 +49,7 @@ namespace Quran.Server.Infrastructure.Identity.Implementations
 
             for (var counter = iterationStart; counter <= iterationEnd; counter++)
             {
-                codes.Add(Generate(accountSecretKey, counter,6));
+                codes.Add(Generate(accountSecretKey, counter, 6));
             }
 
             return codes.ToArray();

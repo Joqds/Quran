@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Domain.Common;
 using Quran.Server.Domain.Entities;
 using Quran.Server.Infrastructure.Identity;
+
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Persistence
 {

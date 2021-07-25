@@ -3,7 +3,7 @@ using Quran.Server.Domain.Entities;
 
 namespace Quran.Server.Domain.Events
 {
-    public class SampleEvent:DomainEvent
+    public class SampleEvent : DomainEvent
     {
         public SampleEntity Entity { get; set; }
 

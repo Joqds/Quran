@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using IdentityServer4.Services;
+﻿using IdentityServer4.Services;
+
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {

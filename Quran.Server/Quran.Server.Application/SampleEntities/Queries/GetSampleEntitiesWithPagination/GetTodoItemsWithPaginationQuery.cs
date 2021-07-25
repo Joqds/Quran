@@ -1,13 +1,16 @@
 ﻿
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+
 using MediatR;
+
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Application.Common.Mappings;
 using Quran.Server.Application.Common.Models;
+
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Application.SampleEntities.Queries.GetSampleEntitiesWithPagination
 {

@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using Quran.Server.Infrastructure.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Identity
 {
@@ -28,6 +30,6 @@ namespace Quran.Server.Infrastructure.Identity
             return user;
         }
 
-        
+
     }
 }

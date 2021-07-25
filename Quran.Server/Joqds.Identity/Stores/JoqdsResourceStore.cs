@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
-using Joqds.Identity.Tools;
+
+using Quran.Server.Infrastructure.Identity;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {
@@ -24,7 +26,7 @@ namespace Joqds.Identity.Stores
                 {
                     ApiSecrets = {new Secret("quran-aA123456@!".Sha256())},
                 },
-                new ApiResource(JoqdsConstants.ApiResources.QuranAdmin,"administrate quran APIs")
+                new ApiResource(JoqdsConstants.ApiResources.QuranAdmin, "administrate quran APIs")
                 {
                     ApiSecrets = {new Secret("quran-aA123456@!".Sha256())}
                 },
@@ -38,7 +40,7 @@ namespace Joqds.Identity.Stores
                 },
                 new ApiResource(JoqdsConstants.ApiResources.God, "god admin APIs")
             };
-            
+
             //add default scopes with role and version enable
             apiScopes.AddRange(apiResources.Select(x => new ApiScope(x.Name, x.DisplayName,
                 new[] { JoqdsConstants.ClaimTypes.Role, JoqdsConstants.ClaimTypes.Version })).ToList());
@@ -67,6 +69,7 @@ namespace Joqds.Identity.Stores
         }
 
         private static readonly Resources JoqdsResources;
+
         public Task<IEnumerable<IdentityResource>> FindIdentityResourcesByScopeNameAsync(
             IEnumerable<string> scopeNames)
         {

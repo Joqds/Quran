@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+
+using Quran.Server.Infrastructure.Identity;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Joqds.Identity.Tools;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Quran.Server.Infrastructure.Identity;
 
 namespace Joqds.Identity.Stores
 {
@@ -13,8 +14,9 @@ namespace Joqds.Identity.Stores
     {
         private readonly JoqdsUserManager _userManager;
 
-        public JoqdsUserClaimsPrincipalFactory(JoqdsUserManager userManager, IOptions<IdentityOptions> optionsAccessor) : base(userManager,
-            optionsAccessor)
+        public JoqdsUserClaimsPrincipalFactory(JoqdsUserManager userManager, IOptions<IdentityOptions> optionsAccessor)
+            : base(userManager,
+                optionsAccessor)
         {
             _userManager = userManager;
         }
@@ -26,7 +28,7 @@ namespace Joqds.Identity.Stores
 
             var rolesAsync = await UserManager.GetRolesAsync(user);
             claims.AddRange(rolesAsync.Select(x => new Claim(JoqdsConstants.ClaimTypes.Role, x)));
-            
+
             var result = new ClaimsIdentity(generateClaims.Claims.Concat(claims),
                 generateClaims.AuthenticationType, generateClaims.NameClaimType,
                 generateClaims.RoleClaimType)

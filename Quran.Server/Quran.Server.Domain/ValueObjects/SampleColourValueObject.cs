@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Quran.Server.Domain.Common;
+﻿using Quran.Server.Domain.Common;
 using Quran.Server.Domain.Exceptions;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quran.Server.Domain.ValueObjects
 {

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using Quran.Server.Application.Common.Models;
 
 namespace Quran.Server.Application.SampleEntities.Queries.GetSampleEntitiesWithPagination
