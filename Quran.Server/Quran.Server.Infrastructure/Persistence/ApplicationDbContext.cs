@@ -5,10 +5,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-using IdentityServer4.EntityFramework.Options;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Domain.Common;
@@ -17,22 +15,23 @@ using Quran.Server.Infrastructure.Identity;
 
 namespace Quran.Server.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser,ApplicationRole,Guid>, IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
-        private readonly IDateTime _dateTime;
         private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
+            DbContextOptions<ApplicationDbContext> options,
             ICurrentUserService currentUserService,
-            IDomainEventService domainEventService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
+            IDomainEventService domainEventService
+            ) : base(options)
         {
             _currentUserService = currentUserService;
             _domainEventService = domainEventService;
-            _dateTime = dateTime;
+        }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
         }
 
         public DbSet<SampleEntity> SampleEntities { get; set; }
@@ -45,12 +44,12 @@ namespace Quran.Server.Infrastructure.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = _currentUserService.UserId;
-                        entry.Entity.Created = _dateTime.Now;
+                        entry.Entity.Created = DateTime.UtcNow;
                         break;
 
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = _currentUserService.UserId;
-                        entry.Entity.LastModified = _dateTime.Now;
+                        entry.Entity.LastModified = DateTime.UtcNow;
                         break;
                 }
             }
@@ -58,7 +57,7 @@ namespace Quran.Server.Infrastructure.Persistence
             foreach (var entry in ChangeTracker.Entries<ISoftDeleteEntity>())
             {
                 if (entry.State != EntityState.Deleted) continue;
-                entry.Entity.Deleted = _dateTime.Now;
+                entry.Entity.Deleted = DateTime.UtcNow;
                 entry.Entity.DeletedBy = _currentUserService.UserId;
                 entry.Entity.IsDeleted = true;
                 entry.State = EntityState.Modified;
@@ -85,7 +84,7 @@ namespace Quran.Server.Infrastructure.Persistence
                 if (typeof(ISoftDeleteEntity).IsAssignableFrom(entityType.ClrType))
                 {
                     var isDeletedProperty = entityType.FindProperty("IsDeleted");
-                    if (isDeletedProperty!=null&& isDeletedProperty.ClrType==typeof(bool))
+                    if (isDeletedProperty != null && isDeletedProperty.ClrType == typeof(bool))
                     {
                         var parameter = Expression.Parameter(entityType.ClrType, "p");
                         var filter = Expression.Lambda(Expression.Not(Expression.Property(parameter, isDeletedProperty.PropertyInfo)), parameter);

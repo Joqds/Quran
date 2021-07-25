@@ -54,7 +54,7 @@ namespace Quran.Server.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("http://0.0.0.0:5000/", "https://0.0.0.0:5001/");
+                    webBuilder.UseUrls("http://0.0.0.0:5002/", "https://0.0.0.0:5003/");
                     webBuilder.UseStartup<Startup>();
                 });
     }
