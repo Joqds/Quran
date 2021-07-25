@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+
+using System;
 
 namespace Quran.Server.Infrastructure.Identity
 {
@@ -9,7 +10,7 @@ namespace Quran.Server.Infrastructure.Identity
 
         public string DisplayName
         {
-            get => string.IsNullOrWhiteSpace(_displayName)?UserName:_displayName;
+            get => string.IsNullOrWhiteSpace(_displayName) ? UserName : _displayName;
             set => _displayName = value;
         }
 

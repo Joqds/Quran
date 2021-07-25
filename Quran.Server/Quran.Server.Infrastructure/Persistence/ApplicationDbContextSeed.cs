@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+
 using Quran.Server.Infrastructure.Identity;
+
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Persistence
 {
@@ -16,12 +18,12 @@ namespace Quran.Server.Infrastructure.Persistence
                 await roleManager.CreateAsync(administratorRole);
             }
 
-            var administrator = new ApplicationUser { UserName = "mmeshkiny@yahoo.com", Email = "mmeshkiny@yahoo.com",EmailConfirmed = true};
+            var administrator = new ApplicationUser { UserName = "mmeshkiny@yahoo.com", Email = "mmeshkiny@yahoo.com", EmailConfirmed = true };
 
             if (userManager.Users.All(u => u.UserName != administrator.UserName))
             {
                 await userManager.CreateAsync(administrator, "Mohsen");
-                await userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
@@ -29,7 +31,7 @@ namespace Quran.Server.Infrastructure.Persistence
         public static async Task SeedSampleDataAsync(ApplicationDbContext context)
         {
             // Seed, if necessary
-            
+
         }
 #pragma warning restore 1998
 

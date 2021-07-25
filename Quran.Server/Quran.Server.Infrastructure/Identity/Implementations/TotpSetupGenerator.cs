@@ -1,7 +1,9 @@
-﻿using System;
-using IdentityServer4.Extensions;
+﻿using IdentityServer4.Extensions;
+
 using Quran.Server.Infrastructure.Identity.Helper;
 using Quran.Server.Infrastructure.Identity.Model;
+
+using System;
 
 namespace Quran.Server.Infrastructure.Identity.Implementations
 {
@@ -28,9 +30,9 @@ namespace Quran.Server.Infrastructure.Identity.Implementations
             bool useHttps = true
         )
         {
-            if(issuer.IsNullOrEmpty())throw new ArgumentNullException(nameof(issuer));
-            if(accountIdentity.IsNullOrEmpty())throw new ArgumentNullException(nameof(accountIdentity));
-            if(accountSecretKey.IsNullOrEmpty())throw new ArgumentNullException(nameof(accountSecretKey));
+            if (issuer.IsNullOrEmpty()) throw new ArgumentNullException(nameof(issuer));
+            if (accountIdentity.IsNullOrEmpty()) throw new ArgumentNullException(nameof(accountIdentity));
+            if (accountSecretKey.IsNullOrEmpty()) throw new ArgumentNullException(nameof(accountSecretKey));
 
             accountIdentity = accountIdentity.Replace(" ", "");
             var encodedSecretKey = Base32.Encode(accountSecretKey);
@@ -41,19 +43,19 @@ namespace Quran.Server.Infrastructure.Identity.Implementations
 
             var totpSetup = new TotpSetup
             {
-                QrCodeImageUrl = GetQrImage(provisionUrl,qrCodeWidth,qrCodeHeight),
+                QrCodeImageUrl = GetQrImage(provisionUrl, qrCodeWidth, qrCodeHeight),
                 ManualSetupKey = encodedSecretKey
             };
 
             return totpSetup;
         }
 
-        private string GetQrImage(string url,int qrCodeWidth,int qrCodeHeight)
+        private string GetQrImage(string url, int qrCodeWidth, int qrCodeHeight)
         {
             //todo: change it  its deprecated
             var qrUrl = $"https://chart.googleapis.com/chart?cht=qr&chs={qrCodeWidth}x{qrCodeHeight}&chl={url}";
             return qrUrl;
-//            return "data:image/png;base64," + Convert.ToBase64String(_utilitiesService.GetQrCode(url,QRCodeGenerator.ECCLevel.H));
+            //            return "data:image/png;base64," + Convert.ToBase64String(_utilitiesService.GetQrCode(url,QRCodeGenerator.ECCLevel.H));
         }
     }
 }

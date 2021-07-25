@@ -1,9 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Domain.Entities;
 using Quran.Server.Domain.Events;
+
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Application.SampleEntities.Commands.CreateSampleEntity
 {

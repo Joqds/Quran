@@ -1,10 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+
 using Microsoft.Extensions.Logging;
+
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Application.Common.Models;
 using Quran.Server.Domain.Common;
+
+using System;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Services
 {

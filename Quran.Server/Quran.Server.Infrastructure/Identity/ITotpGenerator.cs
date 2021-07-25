@@ -11,7 +11,7 @@ namespace Quran.Server.Infrastructure.Identity
         /// <param name="accountSecretKey">User's secret key. Same as used to create the setup.</param>
         /// <param name="length"></param>
         /// <returns>Creates a 6 digit one time password.</returns>
-        int Generate(string accountSecretKey, int? length=null);
+        int Generate(string accountSecretKey, int? length = null);
 
         string GenerateString(string accountSecretKey, int? length = null);
 

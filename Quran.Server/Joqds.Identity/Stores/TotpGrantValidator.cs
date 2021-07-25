@@ -1,10 +1,11 @@
-using System;
-using System.Threading.Tasks;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
-using Joqds.Identity.Tools;
+
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Services;
+
+using System;
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {
@@ -12,7 +13,7 @@ namespace Joqds.Identity.Stores
     {
         private readonly JoqdsUserManager _userManager;
         private readonly ITotpValidator _totpValidator;
-        
+
 
 
         public TotpGrantValidator(
@@ -32,26 +33,31 @@ namespace Joqds.Identity.Stores
 
             if (!int.TryParse(token, out int tokenValue))
             {
-                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, ValidationResource.invalid_username_or_totp);
+                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant,
+                    ValidationResource.invalid_username_or_totp);
                 return;
             }
 
-            ApplicationUser user=null;
-            if (UtilitiesService.TryNormalizePhoneNumber(username,out string phone))
+            ApplicationUser user = null;
+            if (UtilitiesService.TryNormalizePhoneNumber(username, out string phone))
             {
                 user = await _userManager.FindByPhoneNumber(phone);
             }
+
             if (user == null)
             {
                 user = await _userManager.FindByIdAsync(username);
             }
+
             if (!_totpValidator.Validate(user?.SecurityStamp, tokenValue))
             {
-                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, ValidationResource.invalid_username_or_totp);
+                context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant,
+                    ValidationResource.invalid_username_or_totp);
                 return;
             }
 
-            context.Result = new GrantValidationResult(user?.Id.ToString(), JoqdsConstants.Grants.Totp, DateTime.UtcNow);
+            context.Result =
+                new GrantValidationResult(user?.Id.ToString(), JoqdsConstants.Grants.Totp, DateTime.UtcNow);
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Interfaces;
+﻿using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.EntityFramework.Stores;
 using IdentityServer4.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {
@@ -23,10 +25,10 @@ namespace Joqds.Identity.Stores
             var client = await base.FindClientByIdAsync(clientId);
             if (client == null)
             {
-                client= await _joqdsClientStore.FindClientByIdAsync(clientId);
+                client = await _joqdsClientStore.FindClientByIdAsync(clientId);
                 if (client == null) return null;
                 await _context.Clients.AddAsync(client.ToEntity());
-                await ((DbContext) _context).SaveChangesAsync();
+                await ((DbContext)_context).SaveChangesAsync();
             }
             return client;
         }

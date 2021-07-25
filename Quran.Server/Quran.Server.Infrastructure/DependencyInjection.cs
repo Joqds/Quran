@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Quran.Server.Application.Common.Interfaces;
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Persistence;

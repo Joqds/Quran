@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using Quran.Server.Application.Common.Mappings;
 using Quran.Server.Domain.Entities;
 

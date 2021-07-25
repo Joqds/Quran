@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Interfaces;
+﻿using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.EntityFramework.Stores;
 using IdentityServer4.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Joqds.Identity.Stores
 {
@@ -37,7 +39,7 @@ namespace Joqds.Identity.Stores
             var names = scopeNames.ToList();
             var findApiResourcesByScopeNameAsync = await base.FindApiResourcesByScopeNameAsync(names);
             var findApiResourcesByNameAsync = await _joqdsResourceStore.FindApiResourcesByScopeNameAsync(names);
-            var apiResources = findApiResourcesByNameAsync.Where(x=>findApiResourcesByScopeNameAsync.All(y=>y.Name!=x.Name)).ToList();
+            var apiResources = findApiResourcesByNameAsync.Where(x => findApiResourcesByScopeNameAsync.All(y => y.Name != x.Name)).ToList();
             if (apiResources.Any())
             {
                 await Context.ApiResources.AddRangeAsync(apiResources.Select(x => x.ToEntity()));
@@ -54,7 +56,7 @@ namespace Joqds.Identity.Stores
             var names = scopeNames.ToList();
             var findApiScopesByNameAsync = await base.FindApiScopesByNameAsync(names);
             var apiScopesByNameAsync = await _joqdsResourceStore.FindApiScopesByNameAsync(names);
-            var apiScopes=apiScopesByNameAsync.Where(x => findApiScopesByNameAsync.All(y => y.Name != x.Name)).ToList();
+            var apiScopes = apiScopesByNameAsync.Where(x => findApiScopesByNameAsync.All(y => y.Name != x.Name)).ToList();
             if (apiScopes.Any())
             {
                 await Context.ApiScopes.AddRangeAsync(apiScopes.Select(x => x.ToEntity()));
@@ -72,10 +74,10 @@ namespace Joqds.Identity.Stores
             var names = scopeNames.ToList();
             var findIdentityResourcesByScopeNameAsync = await base.FindIdentityResourcesByScopeNameAsync(names);
             var identityResourcesByScopeNameAsync = await _joqdsResourceStore.FindIdentityResourcesByScopeNameAsync(names);
-            var identityResources = identityResourcesByScopeNameAsync.Where(x=> findIdentityResourcesByScopeNameAsync.All(y => y.Name != x.Name)).ToList();
+            var identityResources = identityResourcesByScopeNameAsync.Where(x => findIdentityResourcesByScopeNameAsync.All(y => y.Name != x.Name)).ToList();
             if (identityResources.Any())
             {
-                await Context.IdentityResources.AddRangeAsync(identityResources.Select(x=>x.ToEntity()));
+                await Context.IdentityResources.AddRangeAsync(identityResources.Select(x => x.ToEntity()));
                 await ((DbContext)Context).SaveChangesAsync();
             }
             var result = findIdentityResourcesByScopeNameAsync.ToList();

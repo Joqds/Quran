@@ -1,10 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using Quran.Server.Infrastructure.Identity.Helper;
+
+using System;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Infrastructure.Identity.Implementations
 {

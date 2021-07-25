@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using Quran.Server.Domain.Common;
+﻿using Quran.Server.Domain.Common;
+
+using System.Threading.Tasks;
 
 namespace Quran.Server.Application.Common.Interfaces
 {

@@ -11,7 +11,7 @@ namespace Joqds.Identity.Tools
         {
             var scopeClaim = principal.Claims.Where(
                     c => string.Equals(c.Type, "scope", StringComparison.OrdinalIgnoreCase))
-                .Select(x=>x.Value)
+                .Select(x => x.Value)
                 .ToList();
 
             return scopeClaim;

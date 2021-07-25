@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Quran.Server.Application.Common.Models
 {
-    public class PaginatedList<T> 
+    public class PaginatedList<T>
     {
         public List<T> Items { get; }
         public int PageIndex { get; }

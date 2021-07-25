@@ -1,6 +1,4 @@
 ﻿
-using System.Text.RegularExpressions;
-
 namespace Quran.Server.Infrastructure.Services
 {
     public static class UtilitiesService

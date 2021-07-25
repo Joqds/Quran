@@ -1,6 +1,6 @@
-﻿namespace Joqds.Identity.Tools
+﻿namespace Quran.Server.Infrastructure.Identity
 {
-    
+
     public static class JoqdsConstants
     {
         public const string Authority = "https://id.joqds.ir";

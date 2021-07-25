@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Quran.Server.Domain.Common;
+﻿using Quran.Server.Domain.Common;
 using Quran.Server.Domain.Events;
+
+using System.Collections.Generic;
 
 namespace Quran.Server.Domain.Entities
 {
-    public class SampleEntity:FullAuditEntity,IHasDomainEvent
+    public class SampleEntity : FullAuditEntity, IHasDomainEvent
     {
         //todo: implement
         public int Id { get; set; }

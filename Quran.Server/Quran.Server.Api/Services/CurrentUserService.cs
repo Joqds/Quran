@@ -1,7 +1,9 @@
-﻿using System;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+
 using Quran.Server.Application.Common.Interfaces;
+
+using System;
+using System.Security.Claims;
 
 namespace Quran.Server.Api.Services
 {
@@ -19,7 +21,7 @@ namespace Quran.Server.Api.Services
             get
             {
                 var userId = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-                return Guid.TryParse(userId, out Guid userGuid) ? userGuid : (Guid?) null;
+                return Guid.TryParse(userId, out Guid userGuid) ? userGuid : (Guid?)null;
             }
         }
     }

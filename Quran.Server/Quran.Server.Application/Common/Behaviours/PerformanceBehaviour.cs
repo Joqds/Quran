@@ -1,9 +1,12 @@
-﻿using System.Diagnostics;
+﻿using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+using Quran.Server.Application.Common.Interfaces;
+
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Quran.Server.Application.Common.Interfaces;
 
 namespace Quran.Server.Application.Common.Behaviours
 {
@@ -15,7 +18,7 @@ namespace Quran.Server.Application.Common.Behaviours
         private readonly IIdentityService _identityService;
 
         public PerformanceBehaviour(
-            ILogger<TRequest> logger, 
+            ILogger<TRequest> logger,
             ICurrentUserService currentUserService,
             IIdentityService identityService)
         {

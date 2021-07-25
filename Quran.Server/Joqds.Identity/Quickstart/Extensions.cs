@@ -1,7 +1,10 @@
-using System;
 using IdentityServer4.Models;
+
 using Joqds.Identity.Quickstart.Account;
+
 using Microsoft.AspNetCore.Mvc;
+
+using System;
 
 namespace Joqds.Identity.Quickstart
 {
@@ -21,7 +24,7 @@ namespace Joqds.Identity.Quickstart
         {
             controller.HttpContext.Response.StatusCode = 200;
             controller.HttpContext.Response.Headers["Location"] = "";
-            
+
             return controller.View(viewName, new RedirectViewModel { RedirectUrl = redirectUri });
         }
     }

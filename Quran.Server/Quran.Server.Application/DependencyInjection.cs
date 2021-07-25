@@ -1,9 +1,14 @@
-﻿using System.Reflection;
-using AutoMapper;
+﻿using AutoMapper;
+
 using FluentValidation;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Quran.Server.Application.Common.Behaviours;
+
+using System.Reflection;
 
 namespace Quran.Server.Application
 {

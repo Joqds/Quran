@@ -1,19 +1,21 @@
-using System.Collections.Generic;
+using FluentValidation.AspNetCore;
+
+using IdentityModel;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
-using FluentValidation.AspNetCore;
-using IdentityModel;
-using Joqds.Identity.Tools;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Logging;
+
 using NSwag;
+using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
+
 using Quran.Server.Api.Filters;
 using Quran.Server.Api.Services;
 using Quran.Server.Application;
@@ -22,6 +24,9 @@ using Quran.Server.Infrastructure;
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Identity.Implementations;
 using Quran.Server.Infrastructure.Persistence;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quran.Server.Api
 {
@@ -147,11 +152,20 @@ namespace Quran.Server.Api
             app.UseCors(_allowedOrigin);
             app.UseHealthChecks("/health");
             app.UseOpenApi();
-            app.UseMigrationsEndPoint(new MigrationsEndPointOptions() {Path = "/mig"});
+            app.UseMigrationsEndPoint(new MigrationsEndPointOptions() { Path = "/mig" });
             //            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.OAuth2Client = new OAuth2ClientSettings()
+                {
+                    ClientId = "QuranSwagger|" + GetType().Assembly.GetName().Version.ToString(2),
+                    AppName = "Quran",
+                    ClientSecret = "3f6ab4da-5dae-404c-ba06-c2ba3686bd94",
+                    UsePkceWithAuthorizationCodeGrant = true
+                };
+            });
 
             app.UseRouting();
             app.UseAuthentication();

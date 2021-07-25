@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Quran.Server.Infrastructure.Identity.Helper;
+
+using System;
 using System.Linq;
-using Quran.Server.Infrastructure.Identity.Helper;
 
 namespace Quran.Server.Infrastructure.Identity.Implementations
 {
@@ -22,7 +23,7 @@ namespace Quran.Server.Infrastructure.Identity.Implementations
         public bool Validate(string accountSecretKey, int clientTotp)
         {
             string givenToken = clientTotp.ToString().PadLeft(TotpConstants.TokenLength, '0');
-            if (givenToken.Length!= TotpConstants.TokenLength)
+            if (givenToken.Length != TotpConstants.TokenLength)
             {
                 return false;
             }

@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using Quran.Server.Application.Common.Models;
 using Quran.Server.Application.SampleEntities.Commands.CreateSampleEntity;
 using Quran.Server.Application.SampleEntities.Commands.DeleteSampleEntity;
 using Quran.Server.Application.SampleEntities.Commands.UpdateSampleEntity;
 using Quran.Server.Application.SampleEntities.Queries.GetSampleEntitiesWithPagination;
+
+using System.Threading.Tasks;
 
 namespace Quran.Server.Api.Controllers
 {
@@ -37,18 +39,18 @@ namespace Quran.Server.Api.Controllers
             return NoContent();
         }
 
-//        [HttpPut("[action]")]
-//        public async Task<ActionResult> UpdateItemDetails(int id, UpdateSampleEntityDetailCommand command)
-//        {
-//            if (id != command.Id)
-//            {
-//                return BadRequest();
-//            }
-//
-//            await Mediator.Send(command);
-//
-//            return NoContent();
-//        }
+        //        [HttpPut("[action]")]
+        //        public async Task<ActionResult> UpdateItemDetails(int id, UpdateSampleEntityDetailCommand command)
+        //        {
+        //            if (id != command.Id)
+        //            {
+        //                return BadRequest();
+        //            }
+        //
+        //            await Mediator.Send(command);
+        //
+        //            return NoContent();
+        //        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)

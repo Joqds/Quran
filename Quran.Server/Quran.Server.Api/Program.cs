@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Persistence;
+
+using System;
+using System.Threading.Tasks;
 
 namespace Quran.Server.Api
 {
@@ -25,7 +26,7 @@ namespace Quran.Server.Api
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-                    
+
                     if (context.Database.IsSqlServer())
                     {
                         context.Database.Migrate();
