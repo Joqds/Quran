@@ -31,6 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\files\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="ValidationResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidationResource.Designer.cs</LastGenOutput>

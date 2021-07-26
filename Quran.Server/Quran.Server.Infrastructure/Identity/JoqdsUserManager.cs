@@ -25,7 +25,8 @@ namespace Quran.Server.Infrastructure.Identity
 
         public async Task<ApplicationUser> FindByUsername(string username)
         {
-            var user = await Users.SingleOrDefaultAsync(x => String.Equals(x.UserName, username, StringComparison.CurrentCultureIgnoreCase));
+
+            var user = await Users.SingleOrDefaultAsync(x => x.NormalizedUserName == NormalizeName(username));
 
             return user;
         }

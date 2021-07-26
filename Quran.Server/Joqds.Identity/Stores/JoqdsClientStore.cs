@@ -43,13 +43,13 @@ namespace Joqds.Identity.Stores
             switch (clientType)
             {
                 case JoqdsClientType.QuranFlutterMobile:
-                    return await GetQuranFlutterMobileClient(value, clientId);
+                    return await GetQuranFlutterMobileClient(value, clientId, clientType);
                 case JoqdsClientType.QuranFlutterWeb:
-                    return await GetQuranFlutterWebClient(value, clientId);
+                    return await GetQuranFlutterWebClient(value, clientId, clientType);
                 case JoqdsClientType.QuranSwagger:
-                    return await GetQuranSwaggerClient(value, clientId);
+                    return await GetQuranSwaggerClient(value, clientId, clientType);
                 case JoqdsClientType.QuranAdmin:
-                    return await GetQuranAdminClient(clientId);
+                    return await GetQuranAdminClient(clientId, clientType);
                 default:
                     return null;
             }
@@ -99,7 +99,7 @@ namespace Joqds.Identity.Stores
             };
 
 
-        private Task<Client> GetQuranAdminClient(string clientId)
+        private Task<Client> GetQuranAdminClient(string clientId, JoqdsClientType clientType)
         {
 
             var client = new Client
@@ -124,12 +124,16 @@ namespace Joqds.Identity.Stores
                     IdentityServerConstants.StandardScopes.Email,
                     JoqdsConstants.ApiResources.QuranAdmin
                 },
-                AllowedCorsOrigins = _allowedOrigins
+                AllowedCorsOrigins = _allowedOrigins,
+                Claims =
+                {
+                    new ClientClaim(JoqdsConstants.ClaimTypes.ClientType, clientType.ToString()),
+                }
             };
             return Task.FromResult(client);
         }
 
-        private Task<Client> GetQuranFlutterMobileClient(Version version, string clientId)
+        private Task<Client> GetQuranFlutterMobileClient(Version version, string clientId, JoqdsClientType clientType)
         {
 
             var client = new Client
@@ -168,6 +172,7 @@ namespace Joqds.Identity.Stores
                 Claims =
                 {
                     new ClientClaim(JoqdsConstants.ClaimTypes.Version, version.ToString(2)),
+                    new ClientClaim(JoqdsConstants.ClaimTypes.ClientType, clientType.ToString()),
                 }
 
             };
@@ -175,7 +180,7 @@ namespace Joqds.Identity.Stores
 
         }
 
-        private Task<Client> GetQuranFlutterWebClient(Version version, string clientId)
+        private Task<Client> GetQuranFlutterWebClient(Version version, string clientId, JoqdsClientType clientType)
         {
             var client = new Client
             {
@@ -213,29 +218,33 @@ namespace Joqds.Identity.Stores
                 Claims =
                 {
                     new ClientClaim(JoqdsConstants.ClaimTypes.Version, version.ToString(2)),
+                    new ClientClaim(JoqdsConstants.ClaimTypes.ClientType, clientType.ToString()),
                 }
 
             };
             return Task.FromResult(client);
         }
 
-        private Task<Client> GetQuranSwaggerClient(Version version, string clientId)
+        private Task<Client> GetQuranSwaggerClient(Version version, string clientId, JoqdsClientType clientType)
         {
             var client = new Client
             {
                 ClientId = clientId,
-                ClientSecrets = new List<Secret>() { new Secret("3f6ab4da-5dae-404c-ba06-c2ba3686bd94") },
+                ClientSecrets = new List<Secret>() { new Secret("3f6ab4da-5dae-404c-ba06-c2ba3686bd94".Sha256(),
+                    "Example") },
                 RequireClientSecret = true,
                 ClientName = QuranSwaggerClient.Prefix,
-                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                AllowedGrantTypes = new []{GrantType.ClientCredentials,GrantType.AuthorizationCode,GrantType.ResourceOwnerPassword,GrantType.DeviceFlow},
                 AllowOfflineAccess = true,
                 ClientClaimsPrefix = null,
                 Enabled = true,
                 AlwaysSendClientClaims = true,
                 UpdateAccessTokenClaimsOnRefresh = false,
                 AccessTokenLifetime = QuranAdminClient.AccessTokenLifetime,
-                RequireConsent = false,
+                RequireConsent = true,
                 RequirePkce = true,
+                UserCodeType = IdentityServerConstants.UserCodeTypes.Numeric,
+                UserSsoLifetime = 120,
                 AllowedScopes =
                 {
                     OidcConstants.StandardScopes.OpenId,
@@ -252,6 +261,7 @@ namespace Joqds.Identity.Stores
                 Claims =
                 {
                     new ClientClaim(JoqdsConstants.ClaimTypes.Version, version.ToString(2)),
+                    new ClientClaim(JoqdsConstants.ClaimTypes.ClientType, clientType.ToString()),
                 },
 
             };

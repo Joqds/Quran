@@ -14,7 +14,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Api", "Quran.S
 		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531} = {01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joqds.Identity", "Joqds.Identity\Joqds.Identity.csproj", "{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joqds.Identity", "Joqds.Identity\Joqds.Identity.csproj", "{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyze", "Analyze", "{61B99A57-BC31-4A25-92C0-011AE802494A}"
+	ProjectSection(SolutionItems) = preProject
+		Quran.Analyze\FullCodeMap.dgml = Quran.Analyze\FullCodeMap.dgml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

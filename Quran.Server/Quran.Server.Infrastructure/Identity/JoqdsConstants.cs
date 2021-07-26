@@ -17,6 +17,7 @@
         public static class ClaimTypes
         {
             public const string Version = "Version";
+            public const string ClientType = "ClientType";
             public const string Role = "Role";
             public const string DisplayName = "DisplayName";
         }
