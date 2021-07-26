@@ -61,7 +61,7 @@ namespace Quran.Server.Application {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to مقدار صفحه پایانی در صورت تنظیم باید از مقدار شروع بزرگتر مساوی باشد.
         /// </summary>
         internal static string Quran_LastPageIfSetMustBeGreaterThanStartPage {
             get {
@@ -70,7 +70,7 @@ namespace Quran.Server.Application {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to مقدار صفحه شروع از یک شروع می شود.
         /// </summary>
         internal static string Quran_PageMustBeGreaterThanZero {
             get {

@@ -10,7 +10,7 @@ namespace Quran.Server.Application.Quran
         public int Id { get; set; }
         public string Text { get; set; }
         public int SurahId { get; set; }
-        public int SurahName { get; set; }
+        public string SurahName { get; set; }
         public int RubId { get; set; }
         public int AyahInSurah { get; set; }
         public int RubJoz { get; set; }
