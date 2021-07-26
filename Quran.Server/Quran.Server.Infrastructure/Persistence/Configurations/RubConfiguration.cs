@@ -14,6 +14,10 @@ namespace Quran.Server.Infrastructure.Persistence.Configurations
                 .HasForeignKey(x => x.RubId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Ayah_Rub");
+
+            builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
         }
     }
 }

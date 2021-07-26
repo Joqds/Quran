@@ -29,7 +29,9 @@ namespace Quran.Server.Api
 
                     if (context.Database.IsSqlServer())
                     {
-                        //context.Database.Migrate();
+                        context.Database.Migrate();
+
+                        context.SeedQuranData();
                     }
 
                     var seedData = services.GetService<IOptions<IdSeedUsersOptions>>();

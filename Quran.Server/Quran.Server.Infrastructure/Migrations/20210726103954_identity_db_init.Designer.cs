@@ -10,8 +10,8 @@ using Quran.Server.Infrastructure.Persistence;
 namespace Quran.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210726091829_Add_Seeding_Tracking")]
-    partial class Add_Seeding_Tracking
+    [Migration("20210726103954_identity_db_init")]
+    partial class identity_db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,114 +120,6 @@ namespace Quran.Server.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.Ayah", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AyahInRub")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AyahInSurah")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LetterCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SajdahReason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SajdahType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SurahId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WordCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RubId");
-
-                    b.HasIndex("SurahId");
-
-                    b.ToTable("Ayat");
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.Rub", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FirstAyahId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Joz")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LastAyahId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RubInJoz")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FirstAyahId");
-
-                    b.HasIndex("LastAyahId");
-
-                    b.ToTable("Arba");
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.SeedingEntry", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("__SeedingHistory");
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.Surah", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Page")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlaceOfRevelationType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RevelationSequenceNo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sovar");
                 });
 
             modelBuilder.Entity("Quran.Server.Infrastructure.Identity.ApplicationUser", b =>
@@ -375,37 +267,6 @@ namespace Quran.Server.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.Ayah", b =>
-                {
-                    b.HasOne("Quran.Server.Domain.Entities.Rub", "Rub")
-                        .WithMany("Ayat")
-                        .HasForeignKey("RubId")
-                        .HasConstraintName("FK_Ayah_Rub")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Quran.Server.Domain.Entities.Surah", "Surah")
-                        .WithMany("Ayat")
-                        .HasForeignKey("SurahId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.Rub", b =>
-                {
-                    b.HasOne("Quran.Server.Domain.Entities.Ayah", "FirstAyah")
-                        .WithMany("FirstRub")
-                        .HasForeignKey("FirstAyahId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Quran.Server.Domain.Entities.Ayah", "LastAyah")
-                        .WithMany("LastRub")
-                        .HasForeignKey("LastAyahId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

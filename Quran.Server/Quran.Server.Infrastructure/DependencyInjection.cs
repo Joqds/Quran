@@ -23,7 +23,11 @@ namespace Quran.Server.Infrastructure
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         configuration.GetConnectionString("QuranDb"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                        b =>
+                        {
+                            b.MigrationsHistoryTable("__EFMigrationsHistory");
+                            b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                        }));
             }
             services.AddIdentity();
             services.AddJwt(configuration);

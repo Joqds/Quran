@@ -10,8 +10,8 @@ using Quran.Server.Infrastructure.Persistence;
 namespace Quran.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210726091026_base_quran_data_1")]
-    partial class base_quran_data_1
+    [Migration("20210726104151_Add_Seeding_Tracking")]
+    partial class Add_Seeding_Tracking
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,9 +125,7 @@ namespace Quran.Server.Infrastructure.Migrations
             modelBuilder.Entity("Quran.Server.Domain.Entities.Ayah", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("AyahInRub")
                         .HasColumnType("int");
@@ -171,9 +169,7 @@ namespace Quran.Server.Infrastructure.Migrations
             modelBuilder.Entity("Quran.Server.Domain.Entities.Rub", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("FirstAyahId")
                         .HasColumnType("int");
@@ -196,12 +192,20 @@ namespace Quran.Server.Infrastructure.Migrations
                     b.ToTable("Arba");
                 });
 
+            modelBuilder.Entity("Quran.Server.Domain.Entities.SeedingEntry", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("__SeedingHistory");
+                });
+
             modelBuilder.Entity("Quran.Server.Domain.Entities.Surah", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

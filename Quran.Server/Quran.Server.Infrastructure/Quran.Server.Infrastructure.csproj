@@ -8,6 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Persistence\Migrations\**" />
+    <EmbeddedResource Remove="Persistence\Migrations\**" />
+    <None Remove="Persistence\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210726091026_base_quran_data_1.cs" />
+    <Compile Remove="Migrations\20210726091026_base_quran_data_1.Designer.cs" />
+    <Compile Remove="Migrations\20210726091829_Add_Seeding_Tracking.cs" />
+    <Compile Remove="Migrations\20210726091829_Add_Seeding_Tracking.Designer.cs" />
+    <Compile Remove="Migrations\20210726103109_Add_Seeding_Tracking.cs" />
+    <Compile Remove="Migrations\20210726103109_Add_Seeding_Tracking.Designer.cs" />
+    <Compile Remove="Migrations\20210726103510_base_quran_data_1.cs" />
+    <Compile Remove="Migrations\20210726103510_base_quran_data_1.Designer.cs" />
+    <Compile Remove="Migrations\20210726103545_Add_Seeding_Tracking.cs" />
+    <Compile Remove="Migrations\20210726103545_Add_Seeding_Tracking.Designer.cs" />
+    <Compile Remove="Migrations\20210726103750_base_quran_data_1.cs" />
+    <Compile Remove="Migrations\20210726103750_base_quran_data_1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\1_QuranDataInitializer.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\1_QuranDataInitializer.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.17" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.17" />
@@ -29,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
     <Folder Include="Quran\" />
   </ItemGroup>
 

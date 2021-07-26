@@ -7,7 +7,7 @@ using Quran.Server.Domain.Entities;
 
 namespace Quran.Server.Infrastructure.Persistence.Configurations
 {
-    public class SeedConfiguration:IEntityTypeConfiguration<SeedingEntry>
+    public class SeedConfiguration : IEntityTypeConfiguration<SeedingEntry>
     {
         public void Configure(EntityTypeBuilder<SeedingEntry> builder)
         {
@@ -29,7 +29,6 @@ namespace Quran.Server.Infrastructure.Persistence.Configurations
                     .Build()
                     .GetConnectionString("QuranDb")
             ).Options);
-            dbContext.Database.Migrate();
             return dbContext;
         }
     }
