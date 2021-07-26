@@ -123,4 +123,19 @@
   <data name="Quran.PageMustBeGreaterThanZero" xml:space="preserve">
     <value>مقدار صفحه شروع از یک شروع می شود</value>
   </data>
+  <data name="Quran.SurahFinishPageLessThanEndPage" xml:space="preserve">
+    <value>شماره پایان صفحه بعد از پایان سوره است</value>
+  </data>
+  <data name="Quran.SurahFinishPageLessThanStartPage" xml:space="preserve">
+    <value>شماره شروع صفحه بعد از پایان سوره است</value>
+  </data>
+  <data name="Quran.SurahNotFount" xml:space="preserve">
+    <value>سوره پیدا نشد</value>
+  </data>
+  <data name="Quran.SurahStartPageGreaterThanEndPage" xml:space="preserve">
+    <value>شماره پایان صفحه قبل از شروع سوره است</value>
+  </data>
+  <data name="Quran.SurahStartPageGreaterThanStartPage" xml:space="preserve">
+    <value>شماره شروع صفحه قبل از شروع سوره است</value>
+  </data>
 </root>

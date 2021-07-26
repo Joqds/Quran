@@ -17,8 +17,8 @@ namespace Quran.Server.Application.Common.Mappings
         public static Task<PaginatedList<TDestination>> PaginatedListAsync<TDestination>(this IQueryable<TDestination> queryable, int pageNumber, int pageSize)
             => PaginatedList<TDestination>.CreateAsync(queryable, pageNumber, pageSize);
 
-        public static async Task<AyatChunkDto> ToChunkAyatAsync(this IQueryable<AyahDto> queryable)
-            => new AyatChunkDto(){Ayat = await queryable.ToListAsync() };
+        public static async Task<AyatChunkDto> ToAyatChunkAsync(this IQueryable<AyahDto> queryable)
+            => new AyatChunkDto(await queryable.ToListAsync());
 
         public static Task<List<TDestination>> ProjectToListAsync<TDestination>(this IQueryable queryable, IConfigurationProvider configuration)
             => queryable.ProjectTo<TDestination>(configuration).ToListAsync();

@@ -77,5 +77,50 @@ namespace Quran.Server.Application {
                 return ResourceManager.GetString("Quran.PageMustBeGreaterThanZero", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره پایان صفحه بعد از پایان سوره است.
+        /// </summary>
+        internal static string Quran_SurahFinishPageLessThanEndPage {
+            get {
+                return ResourceManager.GetString("Quran.SurahFinishPageLessThanEndPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره شروع صفحه بعد از پایان سوره است.
+        /// </summary>
+        internal static string Quran_SurahFinishPageLessThanStartPage {
+            get {
+                return ResourceManager.GetString("Quran.SurahFinishPageLessThanStartPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سوره پیدا نشد.
+        /// </summary>
+        internal static string Quran_SurahNotFount {
+            get {
+                return ResourceManager.GetString("Quran.SurahNotFount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره پایان صفحه قبل از شروع سوره است.
+        /// </summary>
+        internal static string Quran_SurahStartPageGreaterThanEndPage {
+            get {
+                return ResourceManager.GetString("Quran.SurahStartPageGreaterThanEndPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شماره شروع صفحه قبل از شروع سوره است.
+        /// </summary>
+        internal static string Quran_SurahStartPageGreaterThanStartPage {
+            get {
+                return ResourceManager.GetString("Quran.SurahStartPageGreaterThanStartPage", resourceCulture);
+            }
+        }
     }
 }

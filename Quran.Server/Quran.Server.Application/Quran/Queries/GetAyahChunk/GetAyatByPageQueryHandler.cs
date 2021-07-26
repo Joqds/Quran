@@ -28,14 +28,14 @@ namespace Quran.Server.Application.Quran.Queries.GetAyahChunk
                 .Include(x=>x.Surah)
                 .AsQueryable();
 
-            if (request.FinishPageId.HasValue)
-                ayahs = ayahs.Where(x => x.PageId >= request.StartPageId && x.PageId <= request.FinishPageId);
+            if (request.EndPageId.HasValue)
+                ayahs = ayahs.Where(x => x.PageId >= request.StartPageId && x.PageId <= request.EndPageId);
             else
                 ayahs = ayahs.Where(x => x.PageId == request.StartPageId);
 
             return await ayahs.ProjectTo<AyahDto>(_mapper.ConfigurationProvider)
                 .OrderBy(x=>x.Id)
-                .ToChunkAyatAsync();
+                .ToAyatChunkAsync();
         }
     }
 }

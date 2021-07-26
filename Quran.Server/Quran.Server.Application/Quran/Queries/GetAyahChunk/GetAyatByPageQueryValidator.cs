@@ -9,8 +9,8 @@ namespace Quran.Server.Application.Quran.Queries.GetAyahChunk
             RuleFor(x => x.StartPageId)
                 .GreaterThan(0)
                 .WithMessage(ValidationMessages.Quran_PageMustBeGreaterThanZero);
-            When(x => x.FinishPageId.HasValue, () =>
-                RuleFor(x => x.FinishPageId)
+            When(x => x.EndPageId.HasValue, () =>
+                RuleFor(x => x.EndPageId)
                     .GreaterThanOrEqualTo(x => x.StartPageId)
                     .WithMessage(ValidationMessages.Quran_LastPageIfSetMustBeGreaterThanStartPage)
             );
