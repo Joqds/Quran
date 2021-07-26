@@ -21,6 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyze", "Analyze", "{61B9
 		Quran.Analyze\FullCodeMap.dgml = Quran.Analyze\FullCodeMap.dgml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5CF553B2-C008-4EEC-BBDA-86AA90F526DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{A1720350-C910-4ACA-ADA3-742BA9D32954}"
+	ProjectSection(SolutionItems) = preProject
+		Data\DataBase\1_QuranDataInitializer.sql = Data\DataBase\1_QuranDataInitializer.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +57,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1720350-C910-4ACA-ADA3-742BA9D32954} = {5CF553B2-C008-4EEC-BBDA-86AA90F526DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDFD2DC7-23F5-4FEC-A5F6-AC9C05424CAF}
