@@ -30,3 +30,6 @@ settings:
 
 migration:
 - Quran.Server/**Migrations/**
+
+seeding:
+- Quran.Server/Quran.Server.Infrastructure/Data/*.sql
