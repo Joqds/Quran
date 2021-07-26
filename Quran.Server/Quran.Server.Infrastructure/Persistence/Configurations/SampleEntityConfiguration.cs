@@ -1,19 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using Quran.Server.Domain.Entities;
-
-namespace Quran.Server.Infrastructure.Persistence.Configurations
-{
-    public class SampleEntityConfiguration : IEntityTypeConfiguration<SampleEntity>
-    {
-        public void Configure(EntityTypeBuilder<SampleEntity> builder)
-        {
-            builder.Ignore(e => e.DomainEvents);
-
-            builder.Property(t => t.SampleProperty)
-                .HasMaxLength(200)
-                .IsRequired();
-        }
-    }
-}
+﻿//using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore.Metadata.Builders;
+//
+//namespace Quran.Server.Infrastructure.Persistence.Configurations
+//{
+//    public class SampleEntityConfiguration : IEntityTypeConfiguration<SampleEntity>
+//    {
+//        public void Configure(EntityTypeBuilder<SampleEntity> builder)
+//        {
+//            builder.Ignore(e => e.DomainEvents);
+//
+//            builder.Property(t => t.SampleProperty)
+//                .HasMaxLength(200)
+//                .IsRequired();
+//        }
+//    }
+//}
