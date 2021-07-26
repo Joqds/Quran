@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +9,7 @@ using Quran.Server.Infrastructure.Persistence;
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Quran.Server.Api
 {
@@ -32,10 +32,16 @@ namespace Quran.Server.Api
                         context.Database.Migrate();
                     }
 
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
+                    var seedData = services.GetService<IOptions<IdSeedUsersOptions>>();
+                    if (seedData?.Value != null)
+                    {
+                        var userManager = services.GetRequiredService<JoqdsUserManager>();
+                        var roleManager = services.GetRequiredService<JoqdsRoleManager>();
 
-                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+                        await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager,seedData.Value);
+
+                    }
+
                     await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }
                 catch (Exception ex)

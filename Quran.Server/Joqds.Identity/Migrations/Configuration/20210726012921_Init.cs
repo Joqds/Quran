@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-using System;
-
-namespace Joqds.Identity.Migrations.ConfigurationDb
+namespace Joqds.Identity.Migrations.Configuration
 {
-    public partial class Configuration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,18 +11,18 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiResources",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Enabled = table.Column<bool>(),
-                    Name = table.Column<string>(maxLength: 200),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enabled = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
                     AllowedAccessTokenSigningAlgorithms = table.Column<string>(maxLength: 100, nullable: true),
-                    ShowInDiscoveryDocument = table.Column<bool>(),
-                    Created = table.Column<DateTime>(),
+                    ShowInDiscoveryDocument = table.Column<bool>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: true),
                     LastAccessed = table.Column<DateTime>(nullable: true),
-                    NonEditable = table.Column<bool>()
+                    NonEditable = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,15 +33,15 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiScopes",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Enabled = table.Column<bool>(),
-                    Name = table.Column<string>(maxLength: 200),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enabled = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Required = table.Column<bool>(),
-                    Emphasize = table.Column<bool>(),
-                    ShowInDiscoveryDocument = table.Column<bool>()
+                    Required = table.Column<bool>(nullable: false),
+                    Emphasize = table.Column<bool>(nullable: false),
+                    ShowInDiscoveryDocument = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,51 +52,51 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "Clients",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Enabled = table.Column<bool>(),
-                    ClientId = table.Column<string>(maxLength: 200),
-                    ProtocolType = table.Column<string>(maxLength: 200),
-                    RequireClientSecret = table.Column<bool>(),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enabled = table.Column<bool>(nullable: false),
+                    ClientId = table.Column<string>(maxLength: 200, nullable: false),
+                    ProtocolType = table.Column<string>(maxLength: 200, nullable: false),
+                    RequireClientSecret = table.Column<bool>(nullable: false),
                     ClientName = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
                     ClientUri = table.Column<string>(maxLength: 2000, nullable: true),
                     LogoUri = table.Column<string>(maxLength: 2000, nullable: true),
-                    RequireConsent = table.Column<bool>(),
-                    AllowRememberConsent = table.Column<bool>(),
-                    AlwaysIncludeUserClaimsInIdToken = table.Column<bool>(),
-                    RequirePkce = table.Column<bool>(),
-                    AllowPlainTextPkce = table.Column<bool>(),
-                    RequireRequestObject = table.Column<bool>(),
-                    AllowAccessTokensViaBrowser = table.Column<bool>(),
+                    RequireConsent = table.Column<bool>(nullable: false),
+                    AllowRememberConsent = table.Column<bool>(nullable: false),
+                    AlwaysIncludeUserClaimsInIdToken = table.Column<bool>(nullable: false),
+                    RequirePkce = table.Column<bool>(nullable: false),
+                    AllowPlainTextPkce = table.Column<bool>(nullable: false),
+                    RequireRequestObject = table.Column<bool>(nullable: false),
+                    AllowAccessTokensViaBrowser = table.Column<bool>(nullable: false),
                     FrontChannelLogoutUri = table.Column<string>(maxLength: 2000, nullable: true),
-                    FrontChannelLogoutSessionRequired = table.Column<bool>(),
+                    FrontChannelLogoutSessionRequired = table.Column<bool>(nullable: false),
                     BackChannelLogoutUri = table.Column<string>(maxLength: 2000, nullable: true),
-                    BackChannelLogoutSessionRequired = table.Column<bool>(),
-                    AllowOfflineAccess = table.Column<bool>(),
-                    IdentityTokenLifetime = table.Column<int>(),
+                    BackChannelLogoutSessionRequired = table.Column<bool>(nullable: false),
+                    AllowOfflineAccess = table.Column<bool>(nullable: false),
+                    IdentityTokenLifetime = table.Column<int>(nullable: false),
                     AllowedIdentityTokenSigningAlgorithms = table.Column<string>(maxLength: 100, nullable: true),
-                    AccessTokenLifetime = table.Column<int>(),
-                    AuthorizationCodeLifetime = table.Column<int>(),
+                    AccessTokenLifetime = table.Column<int>(nullable: false),
+                    AuthorizationCodeLifetime = table.Column<int>(nullable: false),
                     ConsentLifetime = table.Column<int>(nullable: true),
-                    AbsoluteRefreshTokenLifetime = table.Column<int>(),
-                    SlidingRefreshTokenLifetime = table.Column<int>(),
-                    RefreshTokenUsage = table.Column<int>(),
-                    UpdateAccessTokenClaimsOnRefresh = table.Column<bool>(),
-                    RefreshTokenExpiration = table.Column<int>(),
-                    AccessTokenType = table.Column<int>(),
-                    EnableLocalLogin = table.Column<bool>(),
-                    IncludeJwtId = table.Column<bool>(),
-                    AlwaysSendClientClaims = table.Column<bool>(),
+                    AbsoluteRefreshTokenLifetime = table.Column<int>(nullable: false),
+                    SlidingRefreshTokenLifetime = table.Column<int>(nullable: false),
+                    RefreshTokenUsage = table.Column<int>(nullable: false),
+                    UpdateAccessTokenClaimsOnRefresh = table.Column<bool>(nullable: false),
+                    RefreshTokenExpiration = table.Column<int>(nullable: false),
+                    AccessTokenType = table.Column<int>(nullable: false),
+                    EnableLocalLogin = table.Column<bool>(nullable: false),
+                    IncludeJwtId = table.Column<bool>(nullable: false),
+                    AlwaysSendClientClaims = table.Column<bool>(nullable: false),
                     ClientClaimsPrefix = table.Column<string>(maxLength: 200, nullable: true),
                     PairWiseSubjectSalt = table.Column<string>(maxLength: 200, nullable: true),
-                    Created = table.Column<DateTime>(),
+                    Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: true),
                     LastAccessed = table.Column<DateTime>(nullable: true),
                     UserSsoLifetime = table.Column<int>(nullable: true),
                     UserCodeType = table.Column<string>(maxLength: 100, nullable: true),
-                    DeviceCodeLifetime = table.Column<int>(),
-                    NonEditable = table.Column<bool>()
+                    DeviceCodeLifetime = table.Column<int>(nullable: false),
+                    NonEditable = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,18 +107,18 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "IdentityResources",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Enabled = table.Column<bool>(),
-                    Name = table.Column<string>(maxLength: 200),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Enabled = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Required = table.Column<bool>(),
-                    Emphasize = table.Column<bool>(),
-                    ShowInDiscoveryDocument = table.Column<bool>(),
-                    Created = table.Column<DateTime>(),
+                    Required = table.Column<bool>(nullable: false),
+                    Emphasize = table.Column<bool>(nullable: false),
+                    ShowInDiscoveryDocument = table.Column<bool>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: true),
-                    NonEditable = table.Column<bool>()
+                    NonEditable = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,10 +129,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiResourceClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<string>(maxLength: 200),
-                    ApiResourceId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(maxLength: 200, nullable: false),
+                    ApiResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,11 +149,11 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiResourceProperties",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Key = table.Column<string>(maxLength: 250),
-                    Value = table.Column<string>(maxLength: 2000),
-                    ApiResourceId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(maxLength: 250, nullable: false),
+                    Value = table.Column<string>(maxLength: 2000, nullable: false),
+                    ApiResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,10 +170,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiResourceScopes",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Scope = table.Column<string>(maxLength: 200),
-                    ApiResourceId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Scope = table.Column<string>(maxLength: 200, nullable: false),
+                    ApiResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,14 +190,14 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiResourceSecrets",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Value = table.Column<string>(maxLength: 4000),
+                    Value = table.Column<string>(maxLength: 4000, nullable: false),
                     Expiration = table.Column<DateTime>(nullable: true),
-                    Type = table.Column<string>(maxLength: 250),
-                    Created = table.Column<DateTime>(),
-                    ApiResourceId = table.Column<int>()
+                    Type = table.Column<string>(maxLength: 250, nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    ApiResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,10 +214,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiScopeClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<string>(maxLength: 200),
-                    ScopeId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(maxLength: 200, nullable: false),
+                    ScopeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,11 +234,11 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ApiScopeProperties",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Key = table.Column<string>(maxLength: 250),
-                    Value = table.Column<string>(maxLength: 2000),
-                    ScopeId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(maxLength: 250, nullable: false),
+                    Value = table.Column<string>(maxLength: 2000, nullable: false),
+                    ScopeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -256,11 +255,11 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<string>(maxLength: 250),
-                    Value = table.Column<string>(maxLength: 250),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(maxLength: 250, nullable: false),
+                    Value = table.Column<string>(maxLength: 250, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -277,10 +276,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientCorsOrigins",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Origin = table.Column<string>(maxLength: 150),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Origin = table.Column<string>(maxLength: 150, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,10 +296,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientGrantTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    GrantType = table.Column<string>(maxLength: 250),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GrantType = table.Column<string>(maxLength: 250, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,10 +316,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientIdPRestrictions",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Provider = table.Column<string>(maxLength: 200),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Provider = table.Column<string>(maxLength: 200, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -337,10 +336,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientPostLogoutRedirectUris",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PostLogoutRedirectUri = table.Column<string>(maxLength: 2000),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostLogoutRedirectUri = table.Column<string>(maxLength: 2000, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -357,11 +356,11 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientProperties",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Key = table.Column<string>(maxLength: 250),
-                    Value = table.Column<string>(maxLength: 2000),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(maxLength: 250, nullable: false),
+                    Value = table.Column<string>(maxLength: 2000, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -378,10 +377,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientRedirectUris",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RedirectUri = table.Column<string>(maxLength: 2000),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RedirectUri = table.Column<string>(maxLength: 2000, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -398,10 +397,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientScopes",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Scope = table.Column<string>(maxLength: 200),
-                    ClientId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Scope = table.Column<string>(maxLength: 200, nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -418,14 +417,14 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "ClientSecrets",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(maxLength: 2000, nullable: true),
-                    Value = table.Column<string>(maxLength: 4000),
+                    Value = table.Column<string>(maxLength: 4000, nullable: false),
                     Expiration = table.Column<DateTime>(nullable: true),
-                    Type = table.Column<string>(maxLength: 250),
-                    Created = table.Column<DateTime>(),
-                    ClientId = table.Column<int>()
+                    Type = table.Column<string>(maxLength: 250, nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -442,10 +441,10 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "IdentityResourceClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<string>(maxLength: 200),
-                    IdentityResourceId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(maxLength: 200, nullable: false),
+                    IdentityResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -462,11 +461,11 @@ namespace Joqds.Identity.Migrations.ConfigurationDb
                 name: "IdentityResourceProperties",
                 columns: table => new
                 {
-                    Id = table.Column<int>()
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Key = table.Column<string>(maxLength: 250),
-                    Value = table.Column<string>(maxLength: 2000),
-                    IdentityResourceId = table.Column<int>()
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(maxLength: 250, nullable: false),
+                    Value = table.Column<string>(maxLength: 2000, nullable: false),
+                    IdentityResourceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

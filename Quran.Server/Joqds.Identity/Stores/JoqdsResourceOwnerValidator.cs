@@ -31,7 +31,10 @@ namespace Joqds.Identity.Stores
             var version = context.Request.ClientClaims.FirstOrDefault(x => x.Type == JoqdsConstants.ClaimTypes.Version)
                 ?.Value;
 
-            var joqdsClientType = Enum.Parse<JoqdsClientStore.JoqdsClientType>(context.Request.ClientId);
+            var clientType = context.Request.ClientClaims.FirstOrDefault(x => x.Type == JoqdsConstants.ClaimTypes.ClientType)
+                ?.Value;
+
+            var joqdsClientType = Enum.Parse<JoqdsClientStore.JoqdsClientType>(clientType);
             //todo: check result has error step by step
             if (!ValidateVersion(version, joqdsClientType))
             {
@@ -57,11 +60,13 @@ namespace Joqds.Identity.Stores
 
         private async Task<bool> ValidateUserPassRequest(ResourceOwnerPasswordValidationContext context)
         {
-            var normalizePhoneNumber = UtilitiesService.NormalizePhoneNumber(context.UserName);
-            if (normalizePhoneNumber != null) context.UserName = normalizePhoneNumber;
-            else
+            if (UtilitiesService.TryNormalizePhoneNumber(context.UserName, out string normalizePhoneNumber))
             {
-                var user = await _userManager.FindByIdAsync(context.UserName);
+                context.UserName = normalizePhoneNumber;
+            }
+            else if (Guid.TryParse(context.UserName, out Guid userId))
+            {
+                var user = await _userManager.FindByIdAsync(userId.ToString());
                 context.UserName = user.UserName;
             }
 

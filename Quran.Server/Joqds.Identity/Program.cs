@@ -5,17 +5,22 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
 using System;
+using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.DbContexts;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Joqds.Identity
 {
     public class Program
     {
-        public static int Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -31,14 +36,45 @@ namespace Joqds.Identity
             {
                 var host = CreateHostBuilder(args).Build();
 
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    
+
+                    try
+                    {
+                        var configContext = services.GetRequiredService<ConfigurationDbContext>();
+
+                        if (configContext.Database.IsSqlServer())
+                        {
+                            await configContext.Database.MigrateAsync();
+                        }
+
+                        var operationContext = services.GetRequiredService<PersistedGrantDbContext>();
+
+                        if (operationContext.Database.IsSqlServer())
+                        {
+                            await operationContext.Database.MigrateAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+                        logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+
+                        throw;
+                    }
+                }
+
                 Log.Information("Starting host...");
                 host.Run();
-                return 0;
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Host terminated unexpectedly.");
-                return 1;
+                throw;
             }
             finally
             {

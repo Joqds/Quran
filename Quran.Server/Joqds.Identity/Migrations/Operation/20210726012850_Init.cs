@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-using System;
-
-namespace Joqds.Identity.Migrations.PersistedGrantDb
+namespace Joqds.Identity.Migrations.Operation
 {
-    public partial class Grants : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,15 +11,15 @@ namespace Joqds.Identity.Migrations.PersistedGrantDb
                 name: "DeviceCodes",
                 columns: table => new
                 {
-                    UserCode = table.Column<string>(maxLength: 200),
-                    DeviceCode = table.Column<string>(maxLength: 200),
+                    UserCode = table.Column<string>(maxLength: 200, nullable: false),
+                    DeviceCode = table.Column<string>(maxLength: 200, nullable: false),
                     SubjectId = table.Column<string>(maxLength: 200, nullable: true),
                     SessionId = table.Column<string>(maxLength: 100, nullable: true),
-                    ClientId = table.Column<string>(maxLength: 200),
+                    ClientId = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 200, nullable: true),
-                    CreationTime = table.Column<DateTime>(),
-                    Expiration = table.Column<DateTime>(),
-                    Data = table.Column<string>(maxLength: 50000)
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    Expiration = table.Column<DateTime>(nullable: false),
+                    Data = table.Column<string>(maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,16 +30,16 @@ namespace Joqds.Identity.Migrations.PersistedGrantDb
                 name: "PersistedGrants",
                 columns: table => new
                 {
-                    Key = table.Column<string>(maxLength: 200),
-                    Type = table.Column<string>(maxLength: 50),
+                    Key = table.Column<string>(maxLength: 200, nullable: false),
+                    Type = table.Column<string>(maxLength: 50, nullable: false),
                     SubjectId = table.Column<string>(maxLength: 200, nullable: true),
                     SessionId = table.Column<string>(maxLength: 100, nullable: true),
-                    ClientId = table.Column<string>(maxLength: 200),
+                    ClientId = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 200, nullable: true),
-                    CreationTime = table.Column<DateTime>(),
+                    CreationTime = table.Column<DateTime>(nullable: false),
                     Expiration = table.Column<DateTime>(nullable: true),
                     ConsumedTime = table.Column<DateTime>(nullable: true),
-                    Data = table.Column<string>(maxLength: 50000)
+                    Data = table.Column<string>(maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {

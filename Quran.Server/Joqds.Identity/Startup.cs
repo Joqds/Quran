@@ -117,6 +117,7 @@ namespace Joqds.Identity
                 .AddExtensionGrantValidator<TotpGrantValidator>()
                 .AddCorsPolicyService<JoqdsCorsPolicyService>()
                 .AddResourceOwnerValidator<JoqdsResourceOwnerValidator>()
+                .AddCustomAuthorizeRequestValidator<JoqdsAuthorizeRequestValidator>()
                 ;
 
 
