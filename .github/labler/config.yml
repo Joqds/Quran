@@ -1,0 +1,29 @@
+backend:
+- Quran.Server/*
+- Quran.Server/**/*
+
+identity:
+- Quran.Server/Joqds.Identity/*
+- Quran.Server/Joqds.Identity/**/*
+
+api:
+- Quran.Server/Quran.Server.Api/*
+- Quran.Server/Quran.Server.Api/**/*
+
+application:
+- Quran.Server/Quran.Server.Application/*
+- Quran.Server/Quran.Server.Application/**/*
+
+domain:
+- Quran.Server/Quran.Server.Domain/*
+- Quran.Server/Quran.Server.Domain/**/*
+
+infrastructure:
+- Quran.Server/Quran.Server.Infrastructure/*
+- Quran.Server/Quran.Server.Infrastructure/**/*
+
+solution:
+- Quran.Server/Quran.Server.sln
+
+settings:
+- **/appsettings*.json
