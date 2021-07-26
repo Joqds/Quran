@@ -34,7 +34,9 @@ namespace Quran.Server.Infrastructure.Persistence
         {
         }
 
-
+        public DbSet<Ayah> Ayat { get; set; }
+        public DbSet<Surah> Sovar { get; set; }
+        public DbSet<Rub> Arba { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
