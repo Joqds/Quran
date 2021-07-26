@@ -27,3 +27,6 @@ solution:
 
 settings:
 - Quran.Server/**/appsettings*.json
+
+migration:
+- Quran.Server/**Migrations/**
