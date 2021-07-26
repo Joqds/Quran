@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Quran.Server.Infrastructure.Migrations
 {
-    public partial class QuranDbInit : Migration
+    public partial class base_quran_data_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,24 +48,19 @@ namespace Quran.Server.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SampleEntities",
+                name: "Sovar",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<Guid>(nullable: true),
-                    LastModified = table.Column<DateTime>(nullable: true),
-                    LastModifiedBy = table.Column<Guid>(nullable: true),
-                    Deleted = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedBy = table.Column<Guid>(nullable: true),
-                    SampleProperty = table.Column<string>(maxLength: 200, nullable: false),
-                    Done = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Page = table.Column<int>(nullable: false),
+                    PlaceOfRevelationType = table.Column<int>(nullable: false),
+                    RevelationSequenceNo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SampleEntities", x => x.Id);
+                    table.PrimaryKey("PK_Sovar", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,6 +169,72 @@ namespace Quran.Server.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Ayat",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(nullable: true),
+                    SurahId = table.Column<int>(nullable: false),
+                    RubId = table.Column<int>(nullable: false),
+                    AyahInSurah = table.Column<int>(nullable: false),
+                    AyahInRub = table.Column<int>(nullable: false),
+                    PageId = table.Column<int>(nullable: false),
+                    WordCount = table.Column<int>(nullable: false),
+                    LetterCount = table.Column<int>(nullable: false),
+                    SajdahType = table.Column<int>(nullable: false),
+                    SajdahReason = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ayat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ayat_Sovar_SurahId",
+                        column: x => x.SurahId,
+                        principalTable: "Sovar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Arba",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Joz = table.Column<int>(nullable: false),
+                    RubInJoz = table.Column<int>(nullable: false),
+                    FirstAyahId = table.Column<int>(nullable: false),
+                    LastAyahId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Arba", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Arba_Ayat_FirstAyahId",
+                        column: x => x.FirstAyahId,
+                        principalTable: "Ayat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Arba_Ayat_LastAyahId",
+                        column: x => x.LastAyahId,
+                        principalTable: "Ayat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arba_FirstAyahId",
+                table: "Arba",
+                column: "FirstAyahId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arba_LastAyahId",
+                table: "Arba",
+                column: "LastAyahId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -212,10 +273,36 @@ namespace Quran.Server.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ayat_RubId",
+                table: "Ayat",
+                column: "RubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ayat_SurahId",
+                table: "Ayat",
+                column: "SurahId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Ayah_Rub",
+                table: "Ayat",
+                column: "RubId",
+                principalTable: "Arba",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Arba_Ayat_FirstAyahId",
+                table: "Arba");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Arba_Ayat_LastAyahId",
+                table: "Arba");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -232,13 +319,19 @@ namespace Quran.Server.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "SampleEntities");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Ayat");
+
+            migrationBuilder.DropTable(
+                name: "Arba");
+
+            migrationBuilder.DropTable(
+                name: "Sovar");
         }
     }
 }
