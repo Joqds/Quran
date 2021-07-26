@@ -12,6 +12,7 @@ namespace Quran.Server.Application.Common.Interfaces
         DbSet<Ayah> Ayat { get; set; }
         DbSet<Surah> Sovar { get; set; }
         DbSet<Rub> Arba { get; set; }
+        DbSet<SeedingEntry> SeedingEntries { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
