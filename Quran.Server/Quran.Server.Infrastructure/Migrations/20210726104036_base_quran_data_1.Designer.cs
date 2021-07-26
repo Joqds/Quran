@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quran.Server.Infrastructure.Persistence;
 
 namespace Quran.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210726104036_base_quran_data_1")]
+    partial class base_quran_data_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,16 +190,6 @@ namespace Quran.Server.Infrastructure.Migrations
                     b.HasIndex("LastAyahId");
 
                     b.ToTable("Arba");
-                });
-
-            modelBuilder.Entity("Quran.Server.Domain.Entities.SeedingEntry", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("__SeedingHistory");
                 });
 
             modelBuilder.Entity("Quran.Server.Domain.Entities.Surah", b =>

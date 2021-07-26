@@ -13,6 +13,10 @@ namespace Quran.Server.Infrastructure.Persistence.Configurations
                 .WithOne(x => x.Surah)
                 .HasForeignKey(x => x.SurahId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
         }
     }
 }

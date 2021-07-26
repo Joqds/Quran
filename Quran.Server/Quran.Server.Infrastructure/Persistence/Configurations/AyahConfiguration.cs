@@ -19,6 +19,10 @@ namespace Quran.Server.Infrastructure.Persistence.Configurations
                 .WithOne(x => x.LastAyah)
                 .HasForeignKey(x => x.LastAyahId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
         }
     }
 }
