@@ -1,6 +1,8 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+
 using Quran.Server.Application.Common.Models;
+
+using System.Linq;
 
 namespace Quran.Server.Infrastructure.Identity
 {

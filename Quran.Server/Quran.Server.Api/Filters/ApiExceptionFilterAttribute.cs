@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+
 using Quran.Server.Application.Common.Exceptions;
+
+using System;
+using System.Collections.Generic;
 
 namespace Quran.Server.Api.Filters
 {

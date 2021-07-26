@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Persistence;
+
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Quran.Server.Api
 {
@@ -25,16 +26,22 @@ namespace Quran.Server.Api
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-                    
+
                     if (context.Database.IsSqlServer())
                     {
                         context.Database.Migrate();
                     }
 
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
+                    var seedData = services.GetService<IOptions<IdSeedUsersOptions>>();
+                    if (seedData?.Value != null)
+                    {
+                        var userManager = services.GetRequiredService<JoqdsUserManager>();
+                        var roleManager = services.GetRequiredService<JoqdsRoleManager>();
 
-                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+                        await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager,seedData.Value);
+
+                    }
+
                     await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }
                 catch (Exception ex)
@@ -54,7 +61,7 @@ namespace Quran.Server.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("http://0.0.0.0:5000/", "https://0.0.0.0:5001/");
+                    webBuilder.UseUrls("http://0.0.0.0:5002/", "https://0.0.0.0:5003/");
                     webBuilder.UseStartup<Startup>();
                 });
     }

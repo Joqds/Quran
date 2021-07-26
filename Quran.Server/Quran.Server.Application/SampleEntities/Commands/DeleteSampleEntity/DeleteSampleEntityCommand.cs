@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using Quran.Server.Application.Common.Security;
 
 namespace Quran.Server.Application.SampleEntities.Commands.DeleteSampleEntity

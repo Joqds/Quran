@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using Quran.Server.Domain.Entities;
 
 namespace Quran.Server.Infrastructure.Persistence.Configurations

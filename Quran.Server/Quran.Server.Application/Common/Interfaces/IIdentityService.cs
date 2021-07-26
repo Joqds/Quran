@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Quran.Server.Application.Common.Models;
+
+using System;
 using System.Threading.Tasks;
-using Quran.Server.Application.Common.Models;
 
 namespace Quran.Server.Application.Common.Interfaces
 {

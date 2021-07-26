@@ -1,4 +1,5 @@
 ﻿using MediatR;
+
 using Quran.Server.Domain.Common;
 
 namespace Quran.Server.Application.Common.Models

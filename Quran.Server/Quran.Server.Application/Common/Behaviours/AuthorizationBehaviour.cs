@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MediatR;
+
+using Quran.Server.Application.Common.Exceptions;
+using Quran.Server.Application.Common.Interfaces;
+using Quran.Server.Application.Common.Security;
+
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Quran.Server.Application.Common.Exceptions;
-using Quran.Server.Application.Common.Interfaces;
-using Quran.Server.Application.Common.Security;
 
 namespace Quran.Server.Application.Common.Behaviours
 {
@@ -65,7 +67,7 @@ namespace Quran.Server.Application.Common.Behaviours
                 var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy)).ToList();
                 if (authorizeAttributesWithPolicies.Any())
                 {
-                    foreach(var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
+                    foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                     {
                         var authorized = await _identityService.AuthorizeAsync(_currentUserService.UserId.Value, policy);
 

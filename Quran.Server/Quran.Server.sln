@@ -9,7 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Application", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Infrastructure", "Quran.Server.Infrastructure\Quran.Server.Infrastructure.csproj", "{7D6AA2F9-1DBE-4EFA-9BA8-0F21D45CE4C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quran.Server.Api", "Quran.Server.Api\Quran.Server.Api.csproj", "{775C3023-1FC6-42A5-BFC5-718CDFF22D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quran.Server.Api", "Quran.Server.Api\Quran.Server.Api.csproj", "{775C3023-1FC6-42A5-BFC5-718CDFF22D44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531} = {01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joqds.Identity", "Joqds.Identity\Joqds.Identity.csproj", "{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyze", "Analyze", "{61B99A57-BC31-4A25-92C0-011AE802494A}"
+	ProjectSection(SolutionItems) = preProject
+		Quran.Analyze\FullCodeMap.dgml = Quran.Analyze\FullCodeMap.dgml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +43,10 @@ Global
 		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{775C3023-1FC6-42A5-BFC5-718CDFF22D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
