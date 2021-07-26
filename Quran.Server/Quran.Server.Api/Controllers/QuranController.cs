@@ -27,5 +27,17 @@ namespace Quran.Server.Api.Controllers
                 EndPage = endPage
             });
         }
+
+        [HttpGet("GetAyatByRub")]
+        public async Task<ActionResult<AyatChunkDto>> GetAyatByRub([FromQuery] int rubId)
+        {
+            return await Mediator.Send(new GetAyatByRubQuery() { RubId = rubId});
+        }
+        
+        [HttpGet("GetAyatByJoz")]
+        public async Task<ActionResult<AyatChunkDto>> GetAyatByJoz([FromQuery] int jozId)
+        {
+            return await Mediator.Send(new GetAyatByJozQuery() {JozId = jozId});
+        }
     }
 }

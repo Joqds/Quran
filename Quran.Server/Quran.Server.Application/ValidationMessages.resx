@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Quran.JozMustBetween" xml:space="preserve">
+    <value>جز باید بین 1 تا 30 باشد</value>
+  </data>
   <data name="Quran.LastPageIfSetMustBeGreaterThanStartPage" xml:space="preserve">
     <value>مقدار صفحه پایانی در صورت تنظیم باید از مقدار شروع بزرگتر مساوی باشد</value>
   </data>
   <data name="Quran.PageMustBeGreaterThanZero" xml:space="preserve">
     <value>مقدار صفحه شروع از یک شروع می شود</value>
+  </data>
+  <data name="Quran.RubMustBetween" xml:space="preserve">
+    <value>حزب باید بین 1 تا 240 باشد</value>
   </data>
   <data name="Quran.SurahFinishPageLessThanEndPage" xml:space="preserve">
     <value>شماره پایان صفحه بعد از پایان سوره است</value>

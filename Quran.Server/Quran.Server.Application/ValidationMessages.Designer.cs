@@ -61,6 +61,15 @@ namespace Quran.Server.Application {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to جز باید بین 1 تا 30 باشد.
+        /// </summary>
+        internal static string Quran_JozMustBetween {
+            get {
+                return ResourceManager.GetString("Quran.JozMustBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مقدار صفحه پایانی در صورت تنظیم باید از مقدار شروع بزرگتر مساوی باشد.
         /// </summary>
         internal static string Quran_LastPageIfSetMustBeGreaterThanStartPage {
@@ -75,6 +84,15 @@ namespace Quran.Server.Application {
         internal static string Quran_PageMustBeGreaterThanZero {
             get {
                 return ResourceManager.GetString("Quran.PageMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حزب باید بین 1 تا 240 باشد.
+        /// </summary>
+        internal static string Quran_RubMustBetween {
+            get {
+                return ResourceManager.GetString("Quran.RubMustBetween", resourceCulture);
             }
         }
         
