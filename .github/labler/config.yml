@@ -26,4 +26,4 @@ solution:
 - Quran.Server/Quran.Server.sln
 
 settings:
-- **/appsettings*.json
+- Quran.Server/**/appsettings*.json
