@@ -11,15 +11,16 @@ targets:
       json_serializable:
         options:
 #          header: "//Generated code"
-          any_map: true
-          checked: true
-          explicit_to_json: true
-          create_to_json: true
-          create_factory: true
-          field_rename: snake
-          generic_argument_factories: true
+          # any_map: false
+          # checked: true
+          # explicit_to_json: true
+          # create_to_json: true
+          # create_factory: true
+          # field_rename: snake
+          # generic_argument_factories: true
+          # disallowUnrecognizedKeys: true
       swagger_dart_code_generator:
         options:
-          with_base_url: false
-          input_folder: "swaggers/"
+          with_base_url: true
+          base_urlinput_folder: "swaggers/"
           output_folder: "lib/api/"
