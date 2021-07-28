@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quran.Server.Application.Quran;
 using Quran.Server.Application.Quran.Queries.GetAyahChunk;
 using Quran.Server.Application.Quran.Queries.GetSurahChunk;
+using Quran.Server.Application.Quran.Queries.GetSurahList;
 
 namespace Quran.Server.Api.Controllers
 {
@@ -38,6 +40,11 @@ namespace Quran.Server.Api.Controllers
         public async Task<ActionResult<AyatChunkDto>> GetAyatByJoz([FromQuery] int jozId)
         {
             return await Mediator.Send(new GetAyatByJozQuery() {JozId = jozId});
+        }
+        [HttpGet("GetSurahList")]
+        public async Task<ActionResult<List<SurahDto>>> GetSurahList()
+        {
+            return await Mediator.Send(new GetSurahListQuery());
         }
     }
 }

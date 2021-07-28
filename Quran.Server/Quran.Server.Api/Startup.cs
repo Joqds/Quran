@@ -27,6 +27,8 @@ using Quran.Server.Infrastructure.Persistence;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Quran.Server.Api
 {
@@ -75,7 +77,11 @@ namespace Quran.Server.Api
 
 
             services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>())
-                .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+                .AddFluentValidation(x => x.AutomaticValidationEnabled = false)
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+                });
 
 
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
@@ -107,46 +113,11 @@ namespace Quran.Server.Api
                             {OidcConstants.StandardScopes.Phone, ""},
                             {JoqdsConstants.ApiResources.QuranApp, ""},
                             {JoqdsConstants.Scope.QuranNotif, ""},
-                        },
-                        //                        Flows = new OpenApiOAuthFlows()
-                        //                        {
-                        //                            AuthorizationCode = new OpenApiOAuthFlow()
-                        //                            {
-                        //                                AuthorizationUrl = "https://id.joqds.ir/connect/authorize",
-                        //                                TokenUrl = "https://id.joqds.ir/connect/token",
-                        //                                RefreshUrl = "https://id.joqds.ir/connect/refresh",
-                        //                                Scopes = new Dictionary<string, string>
-                        //                                {
-                        //                                    {OidcConstants.StandardScopes.Profile, "Open Id"},
-                        //                                    {OidcConstants.StandardScopes.OpenId, "Open Id"},
-                        //                                    {OidcConstants.StandardScopes.OfflineAccess, "Open Id"},
-                        //                                    {OidcConstants.StandardScopes.Email, ""},
-                        //                                    {OidcConstants.StandardScopes.Phone, ""},
-                        //                                    {JoqdsConstants.ApiResources.QuranApp, ""},
-                        //                                    {JoqdsConstants.Scope.QuranNotif, ""},
-                        //                                },
-                        //
-                        //                            }
-                        //                            //                            Password = new OpenApiOAuthFlow()
-                        //                            //                            {
-                        //                            //                                RefreshUrl = "https://id.joqds.ir/connect/refresh",
-                        //                            //                                AuthorizationUrl = "https://id.joqds.ir/connect/authorize",
-                        //                            //                                TokenUrl = "https://id.joqds.ir/connect/token",
-                        //                            //                                Scopes = {{OidcConstants.StandardScopes.Profile, "Open Id"},
-                        //                            //                                    {OidcConstants.StandardScopes.OpenId, "Open Id"},
-                        //                            //                                    {OidcConstants.StandardScopes.OfflineAccess, "Open Id"},
-                        //                            //                                    {OidcConstants.StandardScopes.Email, ""},
-                        //                            //                                    {OidcConstants.StandardScopes.Phone, ""},
-                        //                            //                                    {JoqdsConstants.ApiResources.QuranApp, ""},
-                        //                            //                                    {JoqdsConstants.Scope.QuranNotif, ""},
-                        //                            //
-                        //                            //                                }
-                        //                            //                            },
-                        //                        }
+                        }
                     });
                 settings.OperationProcessors.Add(new OperationSecurityScopeProcessor("Identity of Joqds"));
                 settings.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("Identity of Joqds"));
-
+                settings.GenerateEnumMappingDescription = true;
             });
         }
 

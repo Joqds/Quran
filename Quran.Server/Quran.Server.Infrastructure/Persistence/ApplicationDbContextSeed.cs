@@ -26,6 +26,7 @@ namespace Quran.Server.Infrastructure.Persistence
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager, IdSeedUsersOptions seedDataValue)
         {
+            if(seedDataValue?.Admins==null)return;
             var administratorRole = new ApplicationRole(JoqdsConstants.Roles.Admin);
             if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
             {
