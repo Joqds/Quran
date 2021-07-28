@@ -1,4 +1,4 @@
-package com.example.joqds_quran
+package ir.joqds.quran
 
 import io.flutter.embedding.android.FlutterActivity
 
