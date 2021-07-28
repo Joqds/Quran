@@ -1,16 +1,9 @@
-# joqds_quran
+native splash screen:
+    for modify settings:
+        1. edit flutter_native_splash.yaml
+        2. flutter pub run flutter_native_splash:create
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+swagger generator update:
+    1. copy https://quran.api.joqds.ir/swagger/v1/swagger.json to swaggers/quran.swagger
+    2. flutter pub run build_runner build
+    TODO: create script or build_runner to automate
