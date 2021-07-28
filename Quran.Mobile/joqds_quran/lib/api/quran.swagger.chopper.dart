@@ -58,6 +58,13 @@ class _$Quran extends Quran {
   }
 
   @override
+  Future<Response<List<SurahDto>>> quranGetSurahList() {
+    final $url = '/api/Quran/GetSurahList';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<List<SurahDto>, SurahDto>($request);
+  }
+
+  @override
   Future<Response<List<WeatherForecast>>> weatherForecastGet() {
     final $url = '/api/WeatherForecast';
     final $request = Request('GET', $url, client.baseUrl);

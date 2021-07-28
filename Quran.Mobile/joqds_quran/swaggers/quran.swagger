@@ -185,6 +185,34 @@
         ]
       }
     },
+    "/api/Quran/GetSurahList": {
+      "get": {
+        "tags": [
+          "Quran"
+        ],
+        "operationId": "Quran_GetSurahList",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SurahDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    },
     "/api/WeatherForecast": {
       "get": {
         "tags": [
@@ -289,7 +317,7 @@
         }
       },
       "SajdahType": {
-        "type": "integer",
+        "type": "string",
         "description": "",
         "x-enumFlags": true,
         "x-enumNames": [
@@ -299,10 +327,10 @@
           "PlaceAndReason"
         ],
         "enum": [
-          0,
-          1,
-          2,
-          3
+          "None",
+          "Place",
+          "Reason",
+          "PlaceAndReason"
         ]
       },
       "SurahChunkDto": {
@@ -342,6 +370,47 @@
             }
           }
         }
+      },
+      "SurahDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "placeOfRevelationType": {
+            "$ref": "#/components/schemas/PlaceOfRevelationType"
+          },
+          "revelationSequenceNo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ayatCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PlaceOfRevelationType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Makie",
+          "Madani"
+        ],
+        "enum": [
+          "Makie",
+          "Madani"
+        ]
       },
       "WeatherForecast": {
         "type": "object",

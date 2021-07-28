@@ -100,6 +100,32 @@ Map<String, dynamic> _$SurahChunkDtoToJson(SurahChunkDto instance) =>
       'currentChunkPages': instance.currentChunkPages,
     };
 
+SurahDto _$SurahDtoFromJson(Map json) {
+  return $checkedNew('SurahDto', json, () {
+    final val = SurahDto(
+      id: $checkedConvert(json, 'id', (v) => v as int?),
+      name: $checkedConvert(json, 'name', (v) => v as String?),
+      page: $checkedConvert(json, 'page', (v) => v as int?),
+      placeOfRevelationType: $checkedConvert(json, 'placeOfRevelationType',
+          (v) => placeOfRevelationTypeFromJson(v as String?)),
+      revelationSequenceNo:
+          $checkedConvert(json, 'revelationSequenceNo', (v) => v as int?),
+      ayatCount: $checkedConvert(json, 'ayatCount', (v) => v as int?),
+    );
+    return val;
+  });
+}
+
+Map<String, dynamic> _$SurahDtoToJson(SurahDto instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'page': instance.page,
+      'placeOfRevelationType':
+          placeOfRevelationTypeToJson(instance.placeOfRevelationType),
+      'revelationSequenceNo': instance.revelationSequenceNo,
+      'ayatCount': instance.ayatCount,
+    };
+
 WeatherForecast _$WeatherForecastFromJson(Map json) {
   return $checkedNew('WeatherForecast', json, () {
     final val = WeatherForecast(

@@ -63,6 +63,11 @@ abstract class Quran extends ChopperService {
 
   ///
 
+  @Get(path: '/api/Quran/GetSurahList')
+  Future<chopper.Response<List<SurahDto>>> quranGetSurahList();
+
+  ///
+
   @Get(path: '/api/WeatherForecast')
   Future<chopper.Response<List<WeatherForecast>>> weatherForecastGet();
 }
@@ -72,6 +77,7 @@ final Map<Type, Object Function(Map<String, dynamic>)>
   AyatChunkDto: AyatChunkDto.fromJsonFactory,
   AyahDto: AyahDto.fromJsonFactory,
   SurahChunkDto: SurahChunkDto.fromJsonFactory,
+  SurahDto: SurahDto.fromJsonFactory,
   WeatherForecast: WeatherForecast.fromJsonFactory,
 };
 
@@ -311,6 +317,80 @@ extension $SurahChunkDtoExtension on SurahChunkDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class SurahDto {
+  SurahDto({
+    this.id,
+    this.name,
+    this.page,
+    this.placeOfRevelationType,
+    this.revelationSequenceNo,
+    this.ayatCount,
+  });
+
+  factory SurahDto.fromJson(Map<String, dynamic> json) =>
+      _$SurahDtoFromJson(json);
+
+  @JsonKey(name: 'id')
+  final int? id;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'page')
+  final int? page;
+  @JsonKey(
+      name: 'placeOfRevelationType',
+      toJson: placeOfRevelationTypeToJson,
+      fromJson: placeOfRevelationTypeFromJson)
+  final enums.PlaceOfRevelationType? placeOfRevelationType;
+  @JsonKey(name: 'revelationSequenceNo')
+  final int? revelationSequenceNo;
+  @JsonKey(name: 'ayatCount')
+  final int? ayatCount;
+  static const fromJsonFactory = _$SurahDtoFromJson;
+  static const toJsonFactory = _$SurahDtoToJson;
+  Map<String, dynamic> toJson() => _$SurahDtoToJson(this);
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is SurahDto &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.page, page) ||
+                const DeepCollectionEquality().equals(other.page, page)) &&
+            (identical(other.placeOfRevelationType, placeOfRevelationType) ||
+                const DeepCollectionEquality().equals(
+                    other.placeOfRevelationType, placeOfRevelationType)) &&
+            (identical(other.revelationSequenceNo, revelationSequenceNo) ||
+                const DeepCollectionEquality().equals(
+                    other.revelationSequenceNo, revelationSequenceNo)) &&
+            (identical(other.ayatCount, ayatCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.ayatCount, ayatCount)));
+  }
+}
+
+extension $SurahDtoExtension on SurahDto {
+  SurahDto copyWith(
+      {int? id,
+      String? name,
+      int? page,
+      enums.PlaceOfRevelationType? placeOfRevelationType,
+      int? revelationSequenceNo,
+      int? ayatCount}) {
+    return SurahDto(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        page: page ?? this.page,
+        placeOfRevelationType:
+            placeOfRevelationType ?? this.placeOfRevelationType,
+        revelationSequenceNo: revelationSequenceNo ?? this.revelationSequenceNo,
+        ayatCount: ayatCount ?? this.ayatCount);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class WeatherForecast {
   WeatherForecast({
     this.date,
@@ -393,6 +473,49 @@ List<enums.SajdahType> sajdahTypeListFromJson(List? sajdahType) {
   }
 
   return sajdahType.map((e) => sajdahTypeFromJson(e.toString())).toList();
+}
+
+String? placeOfRevelationTypeToJson(
+    enums.PlaceOfRevelationType? placeOfRevelationType) {
+  return enums.$PlaceOfRevelationTypeMap[placeOfRevelationType];
+}
+
+enums.PlaceOfRevelationType placeOfRevelationTypeFromJson(
+    String? placeOfRevelationType) {
+  if (placeOfRevelationType == null) {
+    return enums.PlaceOfRevelationType.swaggerGeneratedUnknown;
+  }
+
+  return enums.$PlaceOfRevelationTypeMap.entries
+      .firstWhere(
+          (element) =>
+              element.value.toLowerCase() ==
+              placeOfRevelationType.toLowerCase(),
+          orElse: () => const MapEntry(
+              enums.PlaceOfRevelationType.swaggerGeneratedUnknown, ''))
+      .key;
+}
+
+List<String> placeOfRevelationTypeListToJson(
+    List<enums.PlaceOfRevelationType>? placeOfRevelationType) {
+  if (placeOfRevelationType == null) {
+    return [];
+  }
+
+  return placeOfRevelationType
+      .map((e) => enums.$PlaceOfRevelationTypeMap[e]!)
+      .toList();
+}
+
+List<enums.PlaceOfRevelationType> placeOfRevelationTypeListFromJson(
+    List? placeOfRevelationType) {
+  if (placeOfRevelationType == null) {
+    return [];
+  }
+
+  return placeOfRevelationType
+      .map((e) => placeOfRevelationTypeFromJson(e.toString()))
+      .toList();
 }
 
 // ignore: unused_element
