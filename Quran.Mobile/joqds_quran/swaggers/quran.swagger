@@ -1,0 +1,395 @@
+{
+  "x-generator": "NSwag v13.12.1.0 (NJsonSchema v10.4.6.0 (Newtonsoft.Json v12.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Joqds Quran Api",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://quran.api.joqds.ir"
+    }
+  ],
+  "paths": {
+    "/api/Quran/GetAyatByPage": {
+      "get": {
+        "tags": [
+          "Quran"
+        ],
+        "operationId": "Quran_GetAyatByPage",
+        "parameters": [
+          {
+            "name": "startPage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "endPage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AyatChunkDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    },
+    "/api/Quran/GetAyatBySurah": {
+      "get": {
+        "tags": [
+          "Quran"
+        ],
+        "operationId": "Quran_GetAyatBySurah",
+        "parameters": [
+          {
+            "name": "surahId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "startPage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "endPage",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurahChunkDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    },
+    "/api/Quran/GetAyatByRub": {
+      "get": {
+        "tags": [
+          "Quran"
+        ],
+        "operationId": "Quran_GetAyatByRub",
+        "parameters": [
+          {
+            "name": "rubId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AyatChunkDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    },
+    "/api/Quran/GetAyatByJoz": {
+      "get": {
+        "tags": [
+          "Quran"
+        ],
+        "operationId": "Quran_GetAyatByJoz",
+        "parameters": [
+          {
+            "name": "jozId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AyatChunkDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    },
+    "/api/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "WeatherForecast_Get",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Identity of Joqds": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AyatChunkDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ayat": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/AyahDto"
+            }
+          },
+          "fromPage": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "toPage": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "AyahDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "surahId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "surahName": {
+            "type": "string",
+            "nullable": true
+          },
+          "rubId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ayahInSurah": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rubJoz": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rubRubInJoz": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sajdahType": {
+            "$ref": "#/components/schemas/SajdahType"
+          },
+          "sajdahReason": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SajdahType": {
+        "type": "integer",
+        "description": "",
+        "x-enumFlags": true,
+        "x-enumNames": [
+          "None",
+          "Place",
+          "Reason",
+          "PlaceAndReason"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "SurahChunkDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ayat": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/AyahDto"
+            }
+          },
+          "surahFromPage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "surahToPage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isEndChunk": {
+            "type": "boolean"
+          },
+          "isStartChunk": {
+            "type": "boolean"
+          },
+          "isAllChunk": {
+            "type": "boolean"
+          },
+          "currentChunkPages": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Identity of Joqds": {
+        "type": "openIdConnect",
+        "description": "Login to work",
+        "openIdConnectUrl": "https://id.joqds.ir/.well-known/openid-configuration",
+        "flows": {
+          "implicit": {
+            "scopes": {
+              "profile": "Open Id",
+              "openid": "Open Id",
+              "offline_access": "Open Id",
+              "email": "",
+              "phone": "",
+              "quran": "",
+              "quran.notif": ""
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Identity of Joqds": []
+    }
+  ]
+}

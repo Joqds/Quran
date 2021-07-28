@@ -10,12 +10,20 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  chopper: ^4.0.1
+  flutter_bloc: ^7.0.1
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
   flutter_native_splash: ^1.2.0
+  chopper_generator: ^4.0.1
+  json_annotation: ^4.0.1
+  json_serializable: ^4.1.4
+  swagger_dart_code_generator: 2.0.8
+  build_runner:
 
 flutter:
   uses-material-design: true

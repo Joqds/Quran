@@ -1,0 +1,25 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - swaggers/**
+      - $package$
+    builders:
+      chopper_generator:
+        options:
+          header: "//Generated code"
+      json_serializable:
+        options:
+#          header: "//Generated code"
+          any_map: true
+          checked: true
+          explicit_to_json: true
+          create_to_json: true
+          create_factory: true
+          field_rename: snake
+          generic_argument_factories: true
+      swagger_dart_code_generator:
+        options:
+          with_base_url: false
+          input_folder: "swaggers/"
+          output_folder: "lib/api/"
