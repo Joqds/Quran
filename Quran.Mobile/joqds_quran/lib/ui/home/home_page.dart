@@ -9,7 +9,8 @@ class HomePage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (context) {
-        return const HomeScreen();
+        return const Directionality(
+            child: HomeScreen(), textDirection: TextDirection.rtl);
       },
     );
   }
