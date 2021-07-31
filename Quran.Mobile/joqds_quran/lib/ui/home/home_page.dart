@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joqds_quran/bloc/bloc.dart';
 import 'package:joqds_quran/ui/home/screen/home_screen.dart';
 
 class HomePage extends Page {
@@ -9,8 +11,13 @@ class HomePage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (context) {
-        return const Directionality(
-            child: HomeScreen(), textDirection: TextDirection.rtl);
+        return Directionality(
+            child: BlocProvider(
+              create: (context) =>
+                  SurahBloc(const UnSurahState())..add(LoadSurahEvent()),
+              child: const HomeScreen(),
+            ),
+            textDirection: TextDirection.rtl);
       },
     );
   }
