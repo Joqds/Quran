@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:joqds_quran/ui/home/screen/home_screen.dart';
 
-class HomePage extends Page {
-  const HomePage() : super(key: const ValueKey(HomePage));
+import 'screen/read_screen.dart';
+
+class ReadPage extends Page {
+  const ReadPage() : super(key: const ValueKey(ReadPage));
 
   @override
   Route createRoute(BuildContext context) {
@@ -10,7 +11,7 @@ class HomePage extends Page {
       settings: this,
       builder: (context) {
         return const Directionality(
-            child: HomeScreen(), textDirection: TextDirection.rtl);
+            child: ReadScreen(), textDirection: TextDirection.rtl);
       },
     );
   }

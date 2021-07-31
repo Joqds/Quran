@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:joqds_quran/api/client_index.dart';
 import 'package:joqds_quran/api/quran.swagger.dart';
+import 'package:joqds_quran/repository/quran_repository.dart';
 
 class QuranScreen extends StatefulWidget {
   const QuranScreen({Key? key}) : super(key: key);
@@ -17,17 +17,19 @@ class _QuranScreenState extends State<QuranScreen> {
   }
 
   retriveSurahList() async {
-    var result = await quranApi.quranGetSurahList();
-    if (result.isSuccessful) {
-      for (var item in result.body!) {
-        setState(() {
-          sovar.add(item);
-        });
-      }
-    }
+    var rep = QuranRepository();
+    sovar = await rep.getSovar();
+    setState(() {});
+    // var result = await quranApi.quranGetSurahList();
+    // if (result.isSuccessful) {
+    //   for (var item in result.body!) {
+    //     setState(() {
+    //       sovar.add(item);
+    //     });
+    //   }
+    // }
   }
 
-  Quran quranApi = Quran.create();
   List<SurahDto> sovar = List<SurahDto>.empty(growable: true);
 
   @override

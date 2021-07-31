@@ -8,6 +8,7 @@ targets:
       chopper_generator:
         options:
           header: "//Generated code"
+          baseUrl: "https://quran.api.joqds.ir"
       json_serializable:
         options:
 #          header: "//Generated code"
@@ -22,5 +23,5 @@ targets:
       swagger_dart_code_generator:
         options:
           with_base_url: true
-          base_urlinput_folder: "swaggers/"
+          input_folder: "swaggers/"
           output_folder: "lib/api/"

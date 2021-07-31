@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:collection/collection.dart';
 
@@ -72,7 +73,6 @@ abstract class Quran extends ChopperService {
 }
 
 final Map<Type, Object Function(Map<String, dynamic>)>
-    // ignore: non_constant_identifier_names
     QuranJsonDecoderMappings = {
   AyatChunkDto: AyatChunkDto.fromJsonFactory,
   AyahDto: AyahDto.fromJsonFactory,
@@ -103,7 +103,6 @@ class AyatChunkDto {
   Map<String, dynamic> toJson() => _$AyatChunkDtoToJson(this);
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is AyatChunkDto &&
@@ -175,7 +174,6 @@ class AyahDto {
   Map<String, dynamic> toJson() => _$AyahDtoToJson(this);
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is AyahDto &&
@@ -272,7 +270,6 @@ class SurahChunkDto {
   Map<String, dynamic> toJson() => _$SurahChunkDtoToJson(this);
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is SurahChunkDto &&
@@ -353,7 +350,6 @@ class SurahDto {
   Map<String, dynamic> toJson() => _$SurahDtoToJson(this);
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is SurahDto &&
@@ -419,7 +415,6 @@ class WeatherForecast {
   Map<String, dynamic> toJson() => _$WeatherForecastToJson(this);
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is WeatherForecast &&
