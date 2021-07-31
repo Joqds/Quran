@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joqds_quran/bloc/bloc.dart';
+import 'package:joqds_quran/ui/read/read_page.dart';
 
 class QuranScreen extends StatefulWidget {
   const QuranScreen({Key? key}) : super(key: key);
@@ -35,24 +36,27 @@ class _QuranScreenState extends State<QuranScreen> {
           return ListView.builder(
             itemCount: state.sovar.length,
             itemBuilder: (context, index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      state.sovar[index].id.toString(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Text(state.sovar[index].name!,
+              return TextButton(
+                onPressed: () => goToRead(state.sovar[index].id!),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        state.sovar[index].id.toString(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5!),
-                  ),
-                ],
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Text(state.sovar[index].name!,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline5!),
+                    ),
+                  ],
+                ),
               );
             },
           );
@@ -60,5 +64,9 @@ class _QuranScreenState extends State<QuranScreen> {
         throw Exception();
       },
     );
+  }
+
+  goToRead(int surahId) {
+    Navigator.push(context, ReadPage(surahId).createRoute(context));
   }
 }

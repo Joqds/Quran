@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:joqds_quran/api/quran.swagger.dart';
 import 'package:meta/meta.dart';
@@ -25,9 +24,8 @@ class LoadSurahEvent extends SurahEvent {
       } else {
         yield ErrorSurahState(response.statusCode.toString());
       }
-    } catch (_, stackTrace) {
-      print('$_');
-      yield ErrorSurahState(_.toString());
+    } catch (e) {
+      yield ErrorSurahState(e.toString());
     }
   }
 }

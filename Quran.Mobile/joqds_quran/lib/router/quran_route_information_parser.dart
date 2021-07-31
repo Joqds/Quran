@@ -6,7 +6,6 @@ class QuranRouteInformationParser
   @override
   Future<QuranPathInformation> parseRouteInformation(
       RouteInformation routeInformation) {
-    // TODO: implement parseRouteInformation
     throw UnimplementedError();
   }
 }

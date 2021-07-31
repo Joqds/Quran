@@ -13,7 +13,8 @@ class AyahBloc extends Bloc<AyahEvent, AyahState> {
     AyahEvent event,
   ) async* {
     try {
-      yield* event.applyAsync(currentState: state, bloc: this);
+      yield* event.applyAsync(
+          currentState: state, bloc: this, surahId: state.surahId);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'AyahBloc', error: _, stackTrace: stackTrace);
       yield state;

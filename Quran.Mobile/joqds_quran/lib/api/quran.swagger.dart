@@ -1,4 +1,5 @@
-import 'package:meta/meta.dart';
+// ignore_for_file: non_constant_identifier_names, hash_and_equals
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:collection/collection.dart';
 
