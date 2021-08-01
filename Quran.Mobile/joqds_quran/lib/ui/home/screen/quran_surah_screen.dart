@@ -51,6 +51,13 @@ class QuranSurahScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headline6),
                       ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                            "آیات: ${state.sovar[index].ayatCount!.toString().toPersianDigit()}",
+                            textAlign: TextAlign.right,
+                            style: Theme.of(context).textTheme.subtitle1),
+                      ),
                     ],
                   ),
                 ),

@@ -20,7 +20,14 @@ class _QUranAppState extends State<QUranApp> {
       title: "Joqds Quran",
       theme: ThemeData(
           textTheme:
-              GoogleFonts.scheherazadeTextTheme(Theme.of(context).textTheme)),
+              GoogleFonts.scheherazadeTextTheme(Theme.of(context).textTheme)
+                  .copyWith(
+                      headline6: const TextStyle(fontSize: 24),
+                      headline5: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                      headline2: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 40),
+                      subtitle1: const TextStyle(fontSize: 18))),
       home: BlocProvider(
         create: (context) => NavBloc(),
         child: Router(

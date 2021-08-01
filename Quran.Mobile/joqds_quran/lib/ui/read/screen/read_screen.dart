@@ -17,6 +17,7 @@ class ReadScreen extends StatelessWidget {
       return Scaffold(
         persistentFooterButtons: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: BackButton(
@@ -63,44 +64,58 @@ class ReadScreen extends StatelessWidget {
                 return ListView.separated(
                   itemCount: state.ayat.length,
                   itemBuilder: (context, index) {
-                    var text =
-                        "${state.ayat[index].text!} (${state.ayat[index].ayahInSurah.toString().toPersianDigit()})";
-                    return Column(
-                      children: [
-                        if (state.ayat[index].ayahInSurah == 1 || index == 0)
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.flare),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Text(
-                                  state.ayat[index].surahName!,
-                                  style: Theme.of(context).textTheme.headline2,
+                    var text = state.ayat[index].text!;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 24.0),
+                      child: Column(
+                        children: [
+                          if (state.ayat[index].ayahInSurah == 1 || index == 0)
+                            Container(
+                              color: Colors.grey,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 24.0, top: 24.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.flare),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: Text(
+                                        state.ayat[index].surahName!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!,
+                                      ),
+                                    ),
+                                    const Icon(Icons.flare),
+                                  ],
                                 ),
                               ),
-                              const Icon(Icons.flare),
-                            ],
-                          ),
-                        if (state.ayat[index].ayahInSurah == 1)
-                          Text("بسم الله الرحمن الرحیم",
+                            ),
+                          if (state.ayat[index].ayahInSurah == 1 &&
+                              state.ayat[index].surahId != 1 &&
+                              state.ayat[index].surahId != 9)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 24.0),
+                              child: Text(
+                                  "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).textTheme.headline5!),
+                            ),
+                          Text(
+                              "$text (${state.ayat[index].ayahInSurah.toString().toPersianDigit()})",
                               textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 30)),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 40),
-                          child: Text(text,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 30)),
-                        ),
-                      ],
+                              style: Theme.of(context).textTheme.headline5!),
+                          // Text(
+                          //     "(${state.ayat[index].ayahInSurah.toString().toPersianDigit()})",
+                          //     textAlign: TextAlign.center,
+                          //     style: Theme.of(context).textTheme.headline5!),
+                        ],
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -110,7 +125,7 @@ class ReadScreen extends StatelessWidget {
                             state.ayat[index].pageId !=
                                 state.ayat[index - 1].pageId)
                           Text(
-                            "-- صفحه ${state.ayat[index].pageId} --",
+                            "-- صفحه ${state.ayat[index].pageId.toString().toPersianDigit()} --",
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                         // if (index > 1 &&
