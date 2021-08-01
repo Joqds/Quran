@@ -16,6 +16,8 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   fluent_appbar: ^2.0.0
   localstore: ^1.2.0
+  google_fonts: ^2.1.0
+  persian_number_utility: ^0.3.4
   
 dev_dependencies:
   flutter_test:

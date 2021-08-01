@@ -298,6 +298,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   graphs:
     dependency: transitive
     description:
@@ -473,6 +480,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
+  persian_number_utility:
+    dependency: "direct main"
+    description:
+      name: persian_number_utility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.4"
   petitparser:
     dependency: transitive
     description:

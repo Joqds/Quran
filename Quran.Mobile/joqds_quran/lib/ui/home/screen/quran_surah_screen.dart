@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joqds_quran/bloc/bloc.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 class QuranSurahScreen extends StatelessWidget {
   const QuranSurahScreen({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class QuranSurahScreen extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          state.sovar[index].id.toString(),
+                          state.sovar[index].id.toString().toPersianDigit(),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6,
                         ),

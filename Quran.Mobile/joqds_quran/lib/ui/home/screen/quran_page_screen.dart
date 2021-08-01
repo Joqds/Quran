@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 class QuranPageScreen extends StatefulWidget {
   const QuranPageScreen({Key? key}) : super(key: key);

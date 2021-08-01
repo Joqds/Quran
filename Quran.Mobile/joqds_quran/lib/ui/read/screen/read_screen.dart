@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joqds_quran/bloc/bloc.dart';
 import 'package:joqds_quran/bloc/nav/index.dart';
 
+import 'package:persian_number_utility/persian_number_utility.dart';
+
 class ReadScreen extends StatelessWidget {
   const ReadScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70,
       // appBar: AppBar(leading: BackButton(
       //   onPressed: () {
       //     BlocProvider.of<NavBloc>(context).add(GoHome());
@@ -51,7 +54,7 @@ class ReadScreen extends StatelessWidget {
                 itemCount: state.ayat.length,
                 itemBuilder: (context, index) {
                   var text =
-                      "${state.ayat[index].text!} (${state.ayat[index].ayahInSurah})";
+                      "${state.ayat[index].text!} (${state.ayat[index].ayahInSurah.toString().toPersianDigit()})";
                   return Column(
                     children: [
                       if (index == 0 ||
@@ -66,7 +69,10 @@ class ReadScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyText1),
                       Text(text,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 30)),
                     ],
                   );
                 },
@@ -85,7 +91,7 @@ class ReadScreen extends StatelessWidget {
                           state.ayat[index].rubId !=
                               state.ayat[index - 1].rubId)
                         Text(
-                            "-- جزء ${state.ayat[index].rubJoz} - حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor()} - ربع ${state.ayat[index].rubRubInJoz} --")
+                            "-- جزء ${state.ayat[index].rubJoz.toString().toPersianDigit()} - حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor().toString().toPersianDigit()} - ربع ${state.ayat[index].rubRubInJoz.toString().toPersianDigit()} --")
                     ],
                   );
                 },

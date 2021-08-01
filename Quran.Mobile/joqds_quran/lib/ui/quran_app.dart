@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:joqds_quran/bloc/nav/index.dart';
 import 'package:joqds_quran/router/quran_router_delegate.dart';
 
@@ -17,6 +18,9 @@ class _QUranAppState extends State<QUranApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Joqds Quran",
+      theme: ThemeData(
+          textTheme:
+              GoogleFonts.scheherazadeTextTheme(Theme.of(context).textTheme)),
       home: BlocProvider(
         create: (context) => NavBloc(),
         child: Router(
