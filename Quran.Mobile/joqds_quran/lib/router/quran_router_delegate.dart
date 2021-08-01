@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:joqds_quran/ui/home/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joqds_quran/bloc/nav/index.dart';
 
 import 'quran_path.dart';
 
@@ -9,11 +10,16 @@ class QuranRouterDelegate extends RouterDelegate<QuranPathInformation>
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      key: _navigatorKey,
-      pages: const [HomePage()],
-      onPopPage: (route, result) {
-        return route.didPop(result);
+    return BlocBuilder<NavBloc, NavState>(
+      builder: (context, state) {
+        if (state is PageLoadingState) return Container();
+        return Navigator(
+          key: _navigatorKey,
+          pages: state.pages,
+          onPopPage: (route, result) {
+            return route.didPop(result);
+          },
+        );
       },
     );
   }

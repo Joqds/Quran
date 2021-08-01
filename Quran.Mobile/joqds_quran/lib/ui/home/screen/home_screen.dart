@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
             QuranNavbar(onNavBarTap: onNavBarTap, initScreen: _current),
         body: _current.screen,
         appBar: AppBar(
-          title: const Text("Joqds Quran"),
+          title: Text(_current.title ?? ""),
           centerTitle: true,
           automaticallyImplyLeading: true,
           primary: true,

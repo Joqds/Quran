@@ -34,7 +34,6 @@ class LoadAyahBySurahEvent extends AyahEvent {
       var api = Quran.create();
       var response = await api.quranGetAyatBySurah(surahId: surahId);
       if (response.isSuccessful) {
-        response.body!.ayat!.insert(0, AyahDto(text: "بسم الله الرحمن الرحیم"));
         yield InAyahState(response.body!.ayat!, surahId);
       } else {
         yield ErrorAyahState(response.statusCode.toString(), surahId);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joqds_quran/bloc/nav/index.dart';
 import 'package:joqds_quran/router/quran_router_delegate.dart';
 
 class QUranApp extends StatefulWidget {
@@ -15,9 +17,12 @@ class _QUranAppState extends State<QUranApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Joqds Quran",
-      home: Router(
-        routerDelegate: delegate,
-        backButtonDispatcher: RootBackButtonDispatcher(),
+      home: BlocProvider(
+        create: (context) => NavBloc(),
+        child: Router(
+          routerDelegate: delegate,
+          backButtonDispatcher: RootBackButtonDispatcher(),
+        ),
       ),
     );
   }
