@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joqds_quran/bloc/bloc.dart';
+import 'package:joqds_quran/ui/widgets/persian_text_input_formatter.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
 class QuranPageScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class QuranPageScreen extends StatefulWidget {
 
 class _QuranPageScreenState extends State<QuranPageScreen> {
   final TextEditingController textEditingController =
-      TextEditingController(text: "1");
+      TextEditingController(text: "1".toPersianDigit());
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +26,24 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
         children: [
           TextField(
             controller: textEditingController,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(
+                decimal: false, signed: false),
             textAlign: TextAlign.center,
-            textInputAction: TextInputAction.go,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            textInputAction: TextInputAction.done,
+            onSubmitted: (value) {
+              goToRead(context,
+                  goToRead(context, int.parse(value.toEnglishDigit())));
+            },
+            inputFormatters: [
+              PersianDigitOnlyTextInputFormatterWithRange(min: 0, max: 604)
+            ],
             decoration: const InputDecoration(labelText: "شماره صفحه"),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: ElevatedButton(
-                onPressed: () =>
-                    goToRead(context, int.parse(textEditingController.text)),
+                onPressed: () => goToRead(context,
+                    int.parse(textEditingController.text.toEnglishDigit())),
                 child: const Text("برو به صفحه")),
           )
         ],
@@ -43,8 +51,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
     );
   }
 
-  goToRead(BuildContext context, int rubId) {
+  goToRead(BuildContext context, int pageId) {
     BlocProvider.of<NavBloc>(context)
-        .add(GoRead(type: ReadViewType.rub, id: rubId, context: context));
+        .add(GoRead(type: ReadViewType.page, id: pageId, context: context));
   }
 }
