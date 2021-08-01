@@ -26,7 +26,7 @@ class _QuranScreenState extends State<QuranScreen> {
             Tab(text: "جزء"),
             Tab(text: "حزب"),
             Tab(text: "ربع"),
-            Tab(text: "صحفحه"),
+            Tab(text: "صفحه"),
           ],
           isScrollable: true,
         )),

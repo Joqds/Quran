@@ -13,46 +13,59 @@ class QuranPageScreen extends StatefulWidget {
 }
 
 class _QuranPageScreenState extends State<QuranPageScreen> {
-  final TextEditingController textEditingController =
-      TextEditingController(text: "1".toPersianDigit());
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 150,
+          child: TextField(
+            // de: InputDecoration(contentPadding: const EdgeInsets.symmetric(vertical: 40.0)),
+            // scrollPadding: ,
             controller: textEditingController,
             keyboardType: const TextInputType.numberWithOptions(
                 decimal: false, signed: false),
             textAlign: TextAlign.center,
             textInputAction: TextInputAction.done,
             onSubmitted: (value) {
-              goToRead(context,
-                  goToRead(context, int.parse(value.toEnglishDigit())));
+              goToRead(context, int.tryParse(value.toEnglishDigit()));
             },
             inputFormatters: [
               PersianDigitOnlyTextInputFormatterWithRange(min: 0, max: 604)
             ],
-            decoration: const InputDecoration(labelText: "شماره صفحه"),
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              labelText: "شماره صفحه",
+              labelStyle: Theme.of(context).textTheme.headline5,
+              helperText: "بین 1 تا 604".toPersianDigit(),
+              helperStyle: Theme.of(context).textTheme.headline5,
+              alignLabelWithHint: true,
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: ElevatedButton(
-                onPressed: () => goToRead(context,
-                    int.parse(textEditingController.text.toEnglishDigit())),
-                child: const Text("برو به صفحه")),
-          )
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: ElevatedButton(
+              style: ButtonStyle(
+                  fixedSize:
+                      MaterialStateProperty.all(const Size.fromWidth(150)),
+                  textStyle:
+                      MaterialStateProperty.all(const TextStyle(fontSize: 20))),
+              onPressed: () => goToRead(context,
+                  int.parse(textEditingController.text.toEnglishDigit())),
+              child: const Text("برو به صفحه")),
+        )
+      ],
     );
   }
 
-  goToRead(BuildContext context, int pageId) {
-    BlocProvider.of<NavBloc>(context)
-        .add(GoRead(type: ReadViewType.page, id: pageId, context: context));
+  goToRead(BuildContext context, int? pageId) {
+    if (pageId != null) {
+      BlocProvider.of<NavBloc>(context)
+          .add(GoRead(type: ReadViewType.page, id: pageId, context: context));
+    }
   }
 }

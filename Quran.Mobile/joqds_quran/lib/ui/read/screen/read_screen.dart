@@ -46,6 +46,7 @@ class ReadScreen extends StatelessWidget {
               if (state is ErrorAyahState) {
                 return Center(
                     child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text("خطایی رخ داده (${state.errorMessage})"),
@@ -67,17 +68,38 @@ class ReadScreen extends StatelessWidget {
                     return Column(
                       children: [
                         if (state.ayat[index].ayahInSurah == 1 || index == 0)
-                          Text(state.ayat[index].surahName!),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.flare),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: Text(
+                                  state.ayat[index].surahName!,
+                                  style: Theme.of(context).textTheme.headline2,
+                                ),
+                              ),
+                              const Icon(Icons.flare),
+                            ],
+                          ),
                         if (state.ayat[index].ayahInSurah == 1)
                           Text("بسم الله الرحمن الرحیم",
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1),
-                        Text(text,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(fontSize: 30)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 30)),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 40),
+                          child: Text(text,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 30)),
+                        ),
                       ],
                     );
                   },
@@ -87,7 +109,10 @@ class ReadScreen extends StatelessWidget {
                         if (index > 1 &&
                             state.ayat[index].pageId !=
                                 state.ayat[index - 1].pageId)
-                          Text("-- صفحه ${state.ayat[index].pageId} --"),
+                          Text(
+                            "-- صفحه ${state.ayat[index].pageId} --",
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                         // if (index > 1 &&
                         //     state.ayat[index].surahId !=
                         //         state.ayat[index - 1].surahId)
@@ -96,7 +121,9 @@ class ReadScreen extends StatelessWidget {
                             state.ayat[index].rubId !=
                                 state.ayat[index - 1].rubId)
                           Text(
-                              "-- جزء ${state.ayat[index].rubJoz.toString().toPersianDigit()} - حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor().toString().toPersianDigit()} - ربع ${state.ayat[index].rubRubInJoz.toString().toPersianDigit()} --")
+                            "-- جزء ${state.ayat[index].rubJoz.toString().toPersianDigit()} - حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor().toString().toPersianDigit()} - ربع ${state.ayat[index].rubRubInJoz.toString().toPersianDigit()} --",
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
                       ],
                     );
                   },

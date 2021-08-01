@@ -1,14 +1,14 @@
 {
     "name": "Joqds Quran",
     "short_name": "JQ",
-    "start_url": "/app",
+    "start_url": "/#",
     "display": "fullscreen",
     "background_color": "#42a5f5",
     "theme_color": "#42a5f5",
     "description": "Joqds Quran App for dividing quran between peoples",
     "orientation": "portrait",
     "prefer_related_applications": false,
-    "scope": "/app",
+    "scope": "/#",
     "icons": [
         {
             "src": "icons/android-chrome-192x192.png",
