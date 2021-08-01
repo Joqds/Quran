@@ -64,7 +64,6 @@ class QuranSurahScreen extends StatelessWidget {
   }
 
   goToRead(BuildContext context, int surahId) {
-    //Navigator.push(context, ReadPage(surahId).createRoute(context));
     BlocProvider.of<NavBloc>(context)
         .add(GoRead(type: ReadViewType.surah, id: surahId, context: context));
   }

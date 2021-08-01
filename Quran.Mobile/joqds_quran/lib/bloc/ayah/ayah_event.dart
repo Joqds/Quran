@@ -64,11 +64,21 @@ class LoadAyahEvent extends AyahEvent {
           }
           break;
         case ReadViewType.hizb:
-          var response = await api.quranGetAyatByRub(rubId: model.id * 2 - 1);
-          if (response.isSuccessful) {
-            yield InAyahState(response.body!.ayat!, model);
+          var response = await Future.wait([
+            api.quranGetAyatByRub(rubId: model.id * 2 - 1),
+            api.quranGetAyatByRub(rubId: model.id * 2),
+          ]);
+
+          if (response[0].isSuccessful && response[0].isSuccessful) {
+            var result = response[0]
+                .body!
+                .ayat!
+                .followedBy(response[1].body!.ayat!)
+                .toList();
+            result.sort((a, b) => a.id!.compareTo(b.id!));
+            yield InAyahState(result, model);
           } else {
-            yield ErrorAyahState(response.statusCode.toString(), model);
+            yield ErrorAyahState(response[0].statusCode.toString(), model);
           }
           break;
         case ReadViewType.rub:

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joqds_quran/bloc/bloc.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
 class QuranPageScreen extends StatefulWidget {
@@ -9,7 +12,8 @@ class QuranPageScreen extends StatefulWidget {
 }
 
 class _QuranPageScreenState extends State<QuranPageScreen> {
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController =
+      TextEditingController(text: "1");
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +26,25 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
           TextField(
             controller: textEditingController,
             keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+            textInputAction: TextInputAction.go,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: const InputDecoration(labelText: "شماره صفحه"),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: ElevatedButton(
-                onPressed: () {}, child: const Text("برو به صفحه")),
+                onPressed: () =>
+                    goToRead(context, int.parse(textEditingController.text)),
+                child: const Text("برو به صفحه")),
           )
         ],
       ),
     );
+  }
+
+  goToRead(BuildContext context, int rubId) {
+    BlocProvider.of<NavBloc>(context)
+        .add(GoRead(type: ReadViewType.rub, id: rubId, context: context));
   }
 }

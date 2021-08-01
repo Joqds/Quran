@@ -11,7 +11,6 @@ class ReadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
       // appBar: AppBar(leading: BackButton(
       //   onPressed: () {
       //     BlocProvider.of<NavBloc>(context).add(GoHome());
@@ -57,13 +56,9 @@ class ReadScreen extends StatelessWidget {
                       "${state.ayat[index].text!} (${state.ayat[index].ayahInSurah.toString().toPersianDigit()})";
                   return Column(
                     children: [
-                      if (index == 0 ||
-                          state.ayat[index].surahId !=
-                              state.ayat[index - 1].surahId)
+                      if (state.ayat[index].ayahInSurah == 0 || index == 0)
                         Text(state.ayat[index].surahName!),
-                      if (index == 0 ||
-                          state.ayat[index].surahId !=
-                              state.ayat[index - 1].surahId)
+                      if (state.ayat[index].ayahInSurah == 0)
                         Text("بسم الله الرحمن الرحیم",
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyText1),

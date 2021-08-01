@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:joqds_quran/bloc/bloc.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
 class QuranHizbScreen extends StatelessWidget {
@@ -13,7 +15,7 @@ class QuranHizbScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () => goToRead(context, index + 1),
             child: Center(
               child: Text(
                 "حزب \n${(index + 1).toString().toPersianDigit()}",
@@ -25,5 +27,10 @@ class QuranHizbScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  goToRead(BuildContext context, int hizbId) {
+    BlocProvider.of<NavBloc>(context)
+        .add(GoRead(type: ReadViewType.hizb, id: hizbId, context: context));
   }
 }
