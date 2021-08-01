@@ -34,7 +34,7 @@ class ReadNavState extends NavState {
   const ReadNavState(this.model);
 
   @override
-  String get path => "/read/surah/${model.surahId}";
+  String get path => "/read/surah/${model.type}/${model.id}";
 
   @override
   List<Page> get pages => [const HomePage(), ReadPage(model)];

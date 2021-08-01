@@ -43,7 +43,7 @@ class ReadScreen extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<AyahBloc>(context)
-                            .add(LoadAyahBySurahEvent(state.surahId));
+                            .add(LoadAyahEvent(state.model));
                       },
                       child: const Text("تلاش مجدد"))
                 ],

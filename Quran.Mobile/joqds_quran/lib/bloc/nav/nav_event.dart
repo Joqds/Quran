@@ -18,15 +18,16 @@ class GoHome extends NavEvent {
   }
 }
 
-class GoReadBySurah extends NavEvent {
-  final int surahId;
+class GoRead extends NavEvent {
+  final int id;
+  final ReadViewType type;
   final BuildContext context;
 
-  GoReadBySurah(this.surahId, this.context);
+  GoRead({required this.id, required this.type, required this.context});
   @override
   Stream<NavState> applyAsync(
       {required NavState currentState, required NavBloc bloc}) async* {
-    yield ReadNavState(ReadViewModel(surahId: surahId));
+    yield ReadNavState(ReadViewModel.type(type: type, id: id));
   }
 }
 

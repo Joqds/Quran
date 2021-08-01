@@ -13,11 +13,10 @@ class ReadPage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (context) {
-        //todo: its conditional page creation after build joz , rub and pages
         return Directionality(
             child: BlocProvider(
-              create: (context) => AyahBloc(UnAyahState(model.surahId!))
-                ..add(LoadAyahBySurahEvent(model.surahId!)),
+              create: (context) =>
+                  AyahBloc(UnAyahState(model))..add(LoadAyahEvent(model)),
               child: const ReadScreen(),
             ),
             textDirection: TextDirection.rtl);
