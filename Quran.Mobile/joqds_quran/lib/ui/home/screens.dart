@@ -23,7 +23,7 @@ extension HomeScreenTypeExtention on HomeScreenType {
   String? get title {
     switch (this) {
       case HomeScreenType.quran:
-        return "قرآن";
+        return "کریم قرآن";
       case HomeScreenType.search:
         return "جستجو";
       case HomeScreenType.enroll:

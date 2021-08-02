@@ -23,8 +23,7 @@ class _QUranAppState extends State<QUranApp> {
               GoogleFonts.scheherazadeTextTheme(Theme.of(context).textTheme)
                   .copyWith(
                       headline6: const TextStyle(fontSize: 24),
-                      headline5: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                      headline5: const TextStyle(fontSize: 24),
                       headline2: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 40),
                       subtitle1: const TextStyle(fontSize: 18))),

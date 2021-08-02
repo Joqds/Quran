@@ -15,29 +15,37 @@ class ReadScreen extends StatelessWidget {
       return true;
     }, child: BlocBuilder<AyahBloc, AyahState>(builder: (context, state) {
       return Scaffold(
-        persistentFooterButtons: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: BackButton(
-                  onPressed: () {
-                    BlocProvider.of<NavBloc>(context).add(GoHome());
-                  },
-                ),
-              ),
-              if (state is InAyahState)
-                Expanded(
-                  child: Center(
-                      child: Text(
-                    getBottomText(state),
-                    style: Theme.of(context).textTheme.headline5,
-                  )),
-                  flex: 5,
-                )
-            ],
-          )
-        ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: FloatingActionButton(
+          mini: true,
+          child: const BackButton(),
+          onPressed: () {
+            BlocProvider.of<NavBloc>(context).add(GoHome());
+          },
+        ),
+        // persistentFooterButtons: [
+        //   Row(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: [
+        //       Expanded(
+        //         child: BackButton(
+        //           onPressed: () {
+        //             BlocProvider.of<NavBloc>(context).add(GoHome());
+        //           },
+        //         ),
+        //       ),
+        //       if (state is InAyahState)
+        //         Expanded(
+        //           child: Center(
+        //               child: Text(
+        //             getBottomText(state),
+        //             style: Theme.of(context).textTheme.headline5,
+        //           )),
+        //           flex: 5,
+        //         )
+        //     ],
+        //   )
+        // ],
         body: SafeArea(
           child: Builder(
             builder: (context) {
@@ -62,6 +70,7 @@ class ReadScreen extends StatelessWidget {
               }
               if (state is InAyahState) {
                 return ListView.separated(
+                  padding: const EdgeInsets.only(bottom: 50),
                   itemCount: state.ayat.length,
                   itemBuilder: (context, index) {
                     var text = state.ayat[index].text!;
@@ -70,29 +79,26 @@ class ReadScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           if (state.ayat[index].ayahInSurah == 1 || index == 0)
-                            Container(
-                              color: Colors.grey,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 24.0, top: 24.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.flare),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Text(
-                                        state.ayat[index].surahName!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5!,
-                                      ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 24.0, top: 24.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.flare),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Text(
+                                      state.ayat[index].surahName!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3!,
                                     ),
-                                    const Icon(Icons.flare),
-                                  ],
-                                ),
+                                  ),
+                                  const Icon(Icons.flare),
+                                ],
                               ),
                             ),
                           if (state.ayat[index].ayahInSurah == 1 &&
@@ -107,7 +113,7 @@ class ReadScreen extends StatelessWidget {
                                       Theme.of(context).textTheme.headline5!),
                             ),
                           Text(
-                              "$text (${state.ayat[index].ayahInSurah.toString().toPersianDigit()})",
+                              "$text ﴿${state.ayat[index].ayahInSurah.toString().toPersianDigit()}﴾",
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headline5!),
                           // Text(
@@ -125,7 +131,7 @@ class ReadScreen extends StatelessWidget {
                             state.ayat[index].pageId !=
                                 state.ayat[index - 1].pageId)
                           Text(
-                            "-- صفحه ${state.ayat[index].pageId.toString().toPersianDigit()} --",
+                            "۞ صفحه ${state.ayat[index].pageId.toString().toPersianDigit()} ۞",
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                         // if (index > 1 &&
@@ -136,7 +142,7 @@ class ReadScreen extends StatelessWidget {
                             state.ayat[index].rubId !=
                                 state.ayat[index - 1].rubId)
                           Text(
-                            "-- جزء ${state.ayat[index].rubJoz.toString().toPersianDigit()} - حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor().toString().toPersianDigit()} - ربع ${state.ayat[index].rubRubInJoz.toString().toPersianDigit()} --",
+                            "۞ جزء ${state.ayat[index].rubJoz.toString().toPersianDigit()} ۞ حزب ${((state.ayat[index].rubRubInJoz! + 1) / 2).floor().toString().toPersianDigit()} ۞ ربع ${state.ayat[index].rubRubInJoz.toString().toPersianDigit()} ۞",
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                       ],
@@ -161,9 +167,9 @@ class ReadScreen extends StatelessWidget {
       case ReadViewType.joz:
         return "جزء ${state.ayat.first.rubJoz.toString().toPersianDigit()}";
       case ReadViewType.hizb:
-        return "حزب ${((state.ayat.first.rubRubInJoz! / 2) + 1).floor().toString().toPersianDigit()} - جزء ${state.ayat.first.rubJoz.toString().toPersianDigit()}";
+        return "حزب ${((state.ayat.first.rubRubInJoz! / 2) + 1).floor().toString().toPersianDigit()} ۞ جزء ${state.ayat.first.rubJoz.toString().toPersianDigit()}";
       case ReadViewType.rub:
-        return "ربع ${state.ayat.first.rubRubInJoz.toString().toPersianDigit()} - حزب ${((state.ayat.first.rubRubInJoz! / 2) + 1).floor().toString().toPersianDigit()} - جزء ${state.ayat.first.rubJoz.toString().toPersianDigit()}";
+        return "ربع ${state.ayat.first.rubRubInJoz.toString().toPersianDigit()} ۞ حزب ${((state.ayat.first.rubRubInJoz! / 2) + 1).floor().toString().toPersianDigit()} ۞ جزء ${state.ayat.first.rubJoz.toString().toPersianDigit()}";
     }
   }
 }
