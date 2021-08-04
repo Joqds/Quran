@@ -16,6 +16,7 @@ using Quran.Server.Infrastructure.Identity;
 
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -124,14 +125,17 @@ namespace Joqds.Identity.Quickstart.Account
                         props = new AuthenticationProperties
                         {
                             IsPersistent = true,
-                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
+                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration),
                         };
                     }
+
+                    var roles = await _userManager.GetRolesAsync(user);
 
                     // issue authentication cookie with subject ID and username
                     var isuser = new IdentityServerUser(user.Id.ToString())
                     {
                         DisplayName = user.DisplayName,
+                        AdditionalClaims=roles.Select(x=>new Claim(JoqdsConstants.ClaimTypes.Role,x)).ToList()
                     };
 
                     await HttpContext.SignInAsync(isuser, props);

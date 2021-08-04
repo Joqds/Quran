@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,8 +6,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Quran.Server.Application.Common.Interfaces;
-using Quran.Server.Application.Quran.Queries.GetSurahChunk;
-using Quran.Server.Domain.Entities;
 
 namespace Quran.Server.Application.Quran.Queries.GetSurahList
 {

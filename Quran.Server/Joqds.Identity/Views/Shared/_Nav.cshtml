@@ -1,10 +1,12 @@
 @using IdentityServer4.Extensions
+@using Joqds.Identity.AdminUI.Tools
 
 @{
     string name = null;
     if (!true.Equals(ViewData["signed-out"]))
     {
         name = Context.User?.GetDisplayName();
+        
     }
 }
 
@@ -25,7 +27,16 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
                     </div>
-              </li>
+                </li>
+                @if (Context.User.IsInRole(ConstSettings.RoleRequire))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/swagger">Swagger</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/admin">Admin Panel</a>
+                    </li>
+                }
             </ul>
         }
     

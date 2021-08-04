@@ -31,6 +31,5 @@ namespace Quran.Server.Infrastructure.Identity
             return user;
         }
 
-
     }
 }

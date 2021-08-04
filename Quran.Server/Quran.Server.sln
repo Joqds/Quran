@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyze", "Analyze", "{61B9
 		Quran.Analyze\FullCodeMap.dgml = Quran.Analyze\FullCodeMap.dgml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joqds.Identity.AdminUI", "Joqds.Identity.AdminUI\Joqds.Identity.AdminUI.csproj", "{4189BA22-B37D-4BB1-A3B4-D81B3C54C0AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F6B63C-5698-4B7F-A3E3-B4FD31A5F531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4189BA22-B37D-4BB1-A3B4-D81B3C54C0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4189BA22-B37D-4BB1-A3B4-D81B3C54C0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4189BA22-B37D-4BB1-A3B4-D81B3C54C0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4189BA22-B37D-4BB1-A3B4-D81B3C54C0AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

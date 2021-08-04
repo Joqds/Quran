@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.EntityFramework.Storage;
 using IdentityServer4.Services;
 
+using Joqds.Identity.AdminUI.Tools;
 using Joqds.Identity.Stores;
 
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
-
 using Quran.Server.Infrastructure.Identity;
 using Quran.Server.Infrastructure.Identity.Implementations;
 using Quran.Server.Infrastructure.Persistence;
@@ -67,7 +67,7 @@ namespace Joqds.Identity
             services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, JoqdsUserClaimsPrincipalFactory>();
             services.AddScoped<JoqdsClientStore>();
             services.AddScoped<JoqdsResourceStore>();
-
+            services.AddOpenApiDocument();
             if (Configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
@@ -99,7 +99,7 @@ namespace Joqds.Identity
                             sql => sql.MigrationsAssembly(GetType().Assembly.FullName)));
             }
 
-
+            services.AddAdminUiServices();
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
@@ -131,7 +131,10 @@ namespace Joqds.Identity
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication();
+            services.AddAuthentication()
+                .AddCookie()
+                //                .AddApplicationCookie()
+                ;
 
             services.AddScoped<JoqdsSignInManager>();
             services.AddScoped<JoqdsUserManager>();
@@ -173,11 +176,16 @@ namespace Joqds.Identity
 
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCoreAdminCustomUrl("Admin");
             app.UseCors();
-
+            app.UseOpenApi(); // serve OpenAPI/Swagger documents
+            app.UseSwaggerUi3();
+            app.UseReDoc(); // serve ReDoc UI
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
 
