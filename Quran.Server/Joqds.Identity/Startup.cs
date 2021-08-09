@@ -110,7 +110,7 @@ namespace Joqds.Identity
                     // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                     options.EmitStaticAudienceClaim = true;
                 })
-                .AddClientStore<JoqdsClientStorePersist>()
+                    .AddClientStore<JoqdsClientStorePersist>()
                 .AddResourceStore<JoqdsResourceStorePersist>()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddProfileService<JoqdsProfileService>()

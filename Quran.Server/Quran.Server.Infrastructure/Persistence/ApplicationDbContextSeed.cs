@@ -28,6 +28,7 @@ namespace Quran.Server.Infrastructure.Persistence
         {
             if(seedDataValue?.Admins==null)return;
             var administratorRole = new ApplicationRole(JoqdsConstants.Roles.Admin);
+            var godRole = new ApplicationRole(JoqdsConstants.Roles.God);
             if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
             {
                 await roleManager.CreateAsync(administratorRole);
@@ -50,7 +51,7 @@ namespace Quran.Server.Infrastructure.Persistence
                                                 || u.PhoneNumber == admin.Phone))
                 {
                     await userManager.CreateAsync(administrator, admin.Password);
-                    await userManager.AddToRolesAsync(administrator, new[] {administratorRole.Name});
+                    await userManager.AddToRolesAsync(administrator, new[] {administratorRole.Name,godRole.Name});
                 }
             }
 
